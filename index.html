@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NCV Card - Lâm Ngọc Vũ</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #E5E5E5;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      background-color: #B2F2BB;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    .avatar-box {
+      position: relative;
+      display: inline-block;
+    }
+    .avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 5px solid #fff;
+      object-fit: cover;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .qr-top {
+      position: absolute;
+      bottom: 0;
+      right: -10px;
+      background: white;
+      border-radius: 2px;
+      padding: 4px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      margin: 10px 0 4px;
+      font-size: 22px;
+      color: #333;
+    }
+
+    .subtitle {
+      color: #357;
+      margin-bottom: 16px;
+    }
+
+    .phone-button {
+      background-color: #8b004f;
+      color: white;
+      font-size: 18px;
+      padding: 12px;
+      border-radius: 40px;
+      text-decoration: none;
+      display: inline-block;
+      width: 80%;
+      margin-bottom: 16px;
+    }
+
+    .share-buttons {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+      padding: 10px 0;
+      background-color: #f8f8f8;
+      border-radius: 12px;
+    }
+
+    .share-buttons div {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: #333;
+      cursor: pointer;
+    }
+
+    iframe {
+      width: 100%;
+      max-width: 100%;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+
+    .video-button {
+      background-color: #0033cc;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      display: inline-block;
+      margin: 10px auto;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .info {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .role-section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .role-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f0f0f0;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .role-item img {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+    }
+
+    .role-text {
+      font-size: 14px;
+      flex-grow: 1;
+    }
+
+    .icon-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .icon-links a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      font-size: 12px;
+      width: 60px;
+      color: #000;
+    }
+
+    .icon-links img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 4px;
+    }
+
+    .language-switch-fixed {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 1000;
+      display: flex;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 6px 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+    }
+
+    .language-switch-fixed .flag-icon {
+      width: 30px;
+      height: 20px;
+      cursor: pointer;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      transition: transform 0.2s ease;
+    }
+
+    .language-switch-fixed .flag-icon:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="language-switch-fixed">
+    <img src="https://flagcdn.com/w40/vn.png" alt="Tiếng Việt" title="Tiếng Việt" onclick="switchLang('vi')" class="flag-icon">
+    <img src="https://flagcdn.com/w40/us.png" alt="English" title="English" onclick="switchLang('en')" class="flag-icon">
+  </div>
+
+  <div class="container">
+    <div class="avatar-box">
+      <img src="https://i.ibb.co/9L8fZLZ/cef712d527fc15809c8b19049b8851b32b6c29dbe7820f4b57ec929dd2d9e3aa.png" alt="Avatar" class="avatar">
+      <div class="qr-top">
+        <img src="https://i.ibb.co/GvGfpsCv/Ho-ng.jpg" alt="QR" width="80">
+      </div>
+    </div>
+    <h1 id="title">Lâm Ngọc Vũ</h1>
+    <div class="subtitle">Business Development</div>
+    <a href="tel:+84 972 133 680" class="phone-button">📞 +84 972 133 680</a>
+
+    <div class="share-buttons">
+      <div onclick="navigator.share ? navigator.share({ title: document.title, url: location.href }) : alert('Trình duyệt không hỗ trợ')">🔗 Chia sẻ</div>
+      <div onclick="downloadVCard()">📇 Lưu Danh bạ</div>
+    </div>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/J0MAmvy7y8k?si=MqncRvvtpViXuCQT" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+
+    <div class="video-button" id="consultButton">Đăng Ký Tư Vấn</div>
+
+    <div class="info" id="description">
+      * Có kinh nghiệm ở vị trí Sales Overseas trong ngành logistics, phụ trách thị trường Trung Quốc, Ấn Độ và các tuyến khác.<br>
+      * Công việc bao gồm tìm kiếm khách hàng quốc tế, báo giá dịch vụ FCL/LCL, air freight, theo dõi lô hàng và phối hợp với bộ phận chứng từ – hiện trường để đảm bảo giao hàng đúng tiến độ.<br>
+    </div>
+
+    <div class="role-section">
+      <div class="role-item"><img src="https://i.ibb.co/VY0kfHdv/Logo-Nhon-My-700x700-2-150x150.png"><div class="role-text" id="role1">Leader Team Sale 1 Long Hoàng</div><span>🔗</span></div>
+      <div class="role-item"><img src="https://i.ibb.co/Fkwjsw18/logo-ttso-v3-4-150x150.png"><div class="role-text" id="role2">Sales Overseas – Công ty Long Hoàng Logistics</div><span>🔗</span></div>
+    </div>
+
+    <div class="icon-links">
+      <a href="https://zalo.me/0903453808" target="_blank">
+        <img src="https://i.ibb.co/d4nRhVQV/Zalo.png" alt="Zalo" border="0"/>
+        <span>Zalo</span>
+      </a>
+      <a href="https://wa.me/84979394389" target="_blank">
+        <img src="https://i.ibb.co/XxqRB3Qg/Whatsapp.png" alt="Whatsapp" border="0"/>
+        <span>WhatsApp</span>
+      </a>
+      <a href="https://weixin.qq.com/" target="_blank">
+        <img src="https://i.ibb.co/Zz41gSrk/Wechat.png" alt="Wechat" border="0"/>
+        <span>WeChat ID</span>
+      </a>
+      <a href="mailto:sales1@longhoanglogistics.com" target="_blank">
+        <img src="https://i.ibb.co/nqyMXyNM/Email.png" alt="Email" border="0"/>
+        <span>Email</span>
+      </a>
+      <a href="https://goo.gl/maps/your-location" target="_blank">
+        <img src="https://i.ibb.co/7dTZHSwV/Map.png" alt="Map" border="0"/>
+        <span>Địa Chỉ</span>
+      </a>
+      <a href="https://www.longhoanglogistics.com" target="_blank">
+        <img src="https://i.ibb.co/Gf69QR4R/Website.png" alt="Website" border="0"/>
+        <span>Website</span>
+      </a>
+      <a href="https://drive.google.com/file/d/1wyPCBaCLTiUx3aWMwIX3X1WryfnTL-Lp/view?usp=drive_link" target="_blank">
+        <img src="https://i.ibb.co/VY01h09d/Profile.png" alt="Profile" border="0"/>
+        <span>Profile</span>
+      </a>
+      <a href="https://www.facebook.com/share/1BtMe8vCaB/?mibextid=wwXIfr" target="_blank">
+        <img src="https://i.ibb.co/67VF7N5R/Facebook.png" alt="Facebook" border="0"/>
+        <span>Facebook</span>
+      </a>
+      <a href="https://www.tiktok.com/@hoangkimberry" target="_blank">
+        <img src="https://i.ibb.co/cStFGVqG/Tiktok.png" alt="Tiktok" border="0"/>
+        <span>TikTok</span>
+      </a>
+      <a href="https://www.instagram.com/jden0_111?igsh=MjYxbnVxbDRsOTh1" target="_blank">
+        <img src="https://i.ibb.co/39gCrw9n/Instagram.png" alt="Instagram" border="0"/>
+        <span>Instagram</span>
+      </a>
+      <a href="https://nhantien.momo.vn/hoangkimberry" target="_blank">
+        <img src="https://i.ibb.co/KpRgSv04/Momo.png" alt="Momo" border="0"/>
+        <span>Momo</span>
+      </a>
+      <a href="https://i.ibb.co/wNnkr6ts/Andy-Vcb.jpg" target="_blank">
+        <img src="https://i.ibb.co/WNDG8rdx/Vietcombank.png" alt="Vietcombank" border="0"/>
+        <span>VCB</span>
+      </a>
+    </div>
+
+    <!-- ... -->
+  </div>
+
+  <script>
+    const translations = {
+      vi: {
+        title: "Lâm Ngọc Vũ",
+        description: `
+        * Có kinh nghiệm ở vị trí Sales Overseas trong ngành logistics, phụ trách thị trường Trung Quốc, Ấn Độ và các tuyến khác.<br>
+      * Công việc bao gồm tìm kiếm khách hàng quốc tế, báo giá dịch vụ FCL/LCL, air freight, theo dõi lô hàng và phối hợp với bộ phận chứng từ – hiện trường để đảm bảo giao hàng đúng tiến độ.`,
+        consult: "Đăng Ký Tư Vấn",
+        roles: [
+          "Sales Overseas – Công ty Long Hoàng Logistics"
+        ]
+      },
+      en: {
+        title: "Mr. Andy",
+        description: `
+        * Experience as an Overseas Sales Representative in the logistics industry, responsible for the Chinese, Indian, and other trade lanes.<br>
+        * Responsibilities included sourcing international clients, quoting FCL/LCL and air freight services, tracking shipments, and coordinating with the documentation and operations teams to ensure on-time delivery.`,
+        consult: "Register for Consultation",
+        roles: [
+          "Sales Overseas – Long Hoang Logistics Company"
+        ]
+      }
+    };
+
+    function switchLang(lang) {
+      document.getElementById("title").innerHTML = translations[lang].title;
+      document.getElementById("description").innerHTML = translations[lang].description;
+      document.getElementById("consultButton").innerHTML = translations[lang].consult;
+
+      for (let i = 0; i < translations[lang].roles.length; i++) {
+        document.getElementById(`role${i + 1}`).innerHTML = translations[lang].roles[i];
+      }
+    }
+
+    function downloadVCard() {
+      const blob = new Blob([`
+BEGIN:VCARD
+VERSION:3.0
+FN:Ngoc Vu
+TEL:0972133680
+EMAIL:sales1@longhoanglogistics.com
+END:VCARD
+      `], { type: 'text/vcard' });
+
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'Vongocnhan.vcf';
+      link.click();
+    }
+  </script>
+</body>
+</html>
