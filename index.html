@@ -18,14 +18,27 @@
       margin: 0 auto;
       background-color: #B2F2BB;
       border-radius: 20px;
-      padding: 20px;
+      padding-bottom: 20px;
       box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+      position: relative;
     }
 
+    /* Ảnh bìa */
+    .cover {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Avatar nằm đè lên ảnh bìa */
     .avatar-box {
       position: relative;
+      margin-top: -80px;
       display: inline-block;
     }
+
     .avatar {
       width: 160px;
       height: 160px;
@@ -34,6 +47,7 @@
       object-fit: cover;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
+
     .qr-top {
       position: absolute;
       bottom: 0;
@@ -108,6 +122,7 @@
       text-align: left;
       font-size: 16px;
       color: #333;
+      padding: 0 20px;
     }
 
     .role-section, .icon-links {
@@ -120,14 +135,16 @@
       background: #f0fff0;
       border-radius: 10px;
       padding: 8px;
-      margin: 6px 0;
+      margin: 6px 20px;
       justify-content: space-between;
     }
+
     .role-item img {
       width: 32px;
       height: 32px;
       border-radius: 50%;
     }
+
     .role-text {
       flex: 1;
       text-align: left;
@@ -141,6 +158,7 @@
       gap: 10px;
       justify-content: center;
       margin-top: 30px;
+      padding: 0 10px;
     }
 
     .icon-links a {
@@ -197,6 +215,7 @@
       justify-content: center;
       align-items: center;
     }
+
     .popup img {
       max-width: 90%;
       max-height: 90%;
@@ -204,6 +223,7 @@
       box-shadow: 0 0 20px rgba(255,255,255,0.3);
       animation: fadeIn 0.3s ease;
     }
+
     @keyframes fadeIn {
       from {opacity: 0; transform: scale(0.9);}
       to {opacity: 1; transform: scale(1);}
@@ -215,13 +235,17 @@
     <img src="https://flagcdn.com/w40/vn.png" alt="Tiếng Việt" title="Tiếng Việt" onclick="switchLang('vi')" class="flag-icon">
     <img src="https://flagcdn.com/w40/us.png" alt="English" title="English" onclick="switchLang('en')" class="flag-icon">
   </div>
+
   <div class="container">
+    <img src="https://i.ibb.co/GsTMMb4f/Cover-Sample.jpg" alt="Ảnh bìa" class="cover">
+
     <div class="avatar-box">
       <img src="https://i.ibb.co/4RKTydDT/Andy.jpg" alt="Avatar" class="avatar">
       <div class="qr-top">
         <img src="https://i.ibb.co/P76k1ZV/Andy.jpg" alt="QR" width="80">
       </div>
     </div>
+
     <h1 id="title">Lâm Ngọc Vũ</h1>
     <div class="subtitle">Leader Business Development</div>
     <a href="tel:+84972133680" class="phone-button">📞 +84 972 133 680</a>
@@ -231,13 +255,13 @@
       <div onclick="downloadVCard()">📇 Lưu Danh bạ</div>
     </div>
 
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/J0MAmvy7y8k?si=MqncRvvtpViXuCQT" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/J0MAmvy7y8k?si=MqncRvvtpViXuCQT" frameborder="0" allowfullscreen></iframe>
 
     <div class="video-button" id="consultButton">Đăng Ký Tư Vấn</div>
 
     <div class="info" id="description">
       * Kinh nghiệm nhiều năm trong lĩnh vực Logistics.<br>
-      * Chuyên về FCL, LCL và vận chuyển hàng không<br>
+      * Chuyên về FCL, LCL và vận chuyển hàng không.<br>
       * Cung cấp trọn gói dịch vụ: Tư vấn – Báo giá – Đặt chỗ – Theo dõi lô hàng.<br>
       * Cam kết giao hàng đúng tiến độ, tối ưu chi phí.<br>
       * Sẵn sàng hỗ trợ 24/7.<br>
