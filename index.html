@@ -113,6 +113,7 @@
     .role-section, .icon-links {
       margin-top: 20px;
     }
+
     .role-item {
       display: flex;
       align-items: center;
@@ -150,6 +151,7 @@
       font-size: 12px;
       width: 60px;
       color: #000;
+      cursor: pointer;
     }
 
     .icon-links img {
@@ -183,6 +185,29 @@
     .language-switch-fixed .flag-icon:hover {
       transform: scale(1.1);
     }
+
+    /* Popup hiển thị ảnh */
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    .popup img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.3);
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.9);}
+      to {opacity: 1; transform: scale(1);}
+    }
   </style>
 </head>
 <body>
@@ -200,14 +225,14 @@
     </div>
     <h1 id="title">Lâm Ngọc Vũ</h1>
     <div class="subtitle">Leader Business Development</div>
-    <a href="tel:+84 972 133 680" class="phone-button">📞 +84 972 133 680</a>
+    <a href="tel:+84972133680" class="phone-button">📞 +84 972 133 680</a>
 
     <div class="share-buttons">
       <div onclick="navigator.share ? navigator.share({ title: document.title, url: location.href }) : alert('Trình duyệt không hỗ trợ')">🔗 Chia sẻ</div>
       <div onclick="downloadVCard()">📇 Lưu Danh bạ</div>
     </div>
 
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/J0MAmvy7y8k?si=MqncRvvtpViXuCQT" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/J0MAmvy7y8k?si=MqncRvvtpViXuCQT" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
 
     <div class="video-button" id="consultButton">Đăng Ký Tư Vấn</div>
 
@@ -220,61 +245,32 @@
     </div>
 
     <div class="role-section">
-      <div class="role-item"><img src="https://i.ibb.co/VY0kfHdv/Logo-Nhon-My-700x700-2-150x150.png"><div class="role-text" id="role1">Leader Team Sale 1 Long Hoàng</div><span>🔗</span></div>
+      <div class="role-item">
+        <img src="https://i.ibb.co/VY0kfHdv/Logo-Nhon-My-700x700-2-150x150.png">
+        <div class="role-text" id="role1">Leader Team Sale 1 Long Hoàng</div>
+        <span>🔗</span>
+      </div>
     </div>
 
     <div class="icon-links">
-      <a href="https://zalo.me/0972133680" target="_blank">
-        <img src="https://i.ibb.co/d4nRhVQV/Zalo.png" alt="Zalo" border="0"/>
-        <span>Zalo</span>
-      </a>
-      <a href="https://wa.me/0972133680" target="_blank">
-        <img src="https://i.ibb.co/XxqRB3Qg/Whatsapp.png" alt="Whatsapp" border="0"/>
-        <span>WhatsApp</span>
-      </a>
-      <a href="https://i.ibb.co/QFSCgkCP/Andy-Wechat.jpg" target="_blank">
-        <img src="https://i.ibb.co/Zz41gSrk/Wechat.png" alt="Wechat" border="0"/>
-        <span>WeChat ID</span>
-      </a>
-      <a href="mailto:sales1@longhoanglogistics.com" target="_blank">
-        <img src="https://i.ibb.co/nqyMXyNM/Email.png" alt="Email" border="0"/>
-        <span>Email</span>
-      </a>
-      <a href="https://goo.gl/maps/your-location" target="_blank">
-        <img src="https://i.ibb.co/7dTZHSwV/Map.png" alt="Map" border="0"/>
-        <span>Địa Chỉ</span>
-      </a>
-      <a href="https://www.longhoanglogistics.com" target="_blank">
-        <img src="https://i.ibb.co/Gf69QR4R/Website.png" alt="Website" border="0"/>
-        <span>Website</span>
-      </a>
-      <a href="https://drive.google.com/file/d/1wyPCBaCLTiUx3aWMwIX3X1WryfnTL-Lp/view?usp=drive_link" target="_blank">
-        <img src="https://i.ibb.co/VY01h09d/Profile.png" alt="Profile" border="0"/>
-        <span>Profile</span>
-      </a>
-      <a href="https://www.facebook.com/share/1BtMe8vCaB/?mibextid=wwXIfr" target="_blank">
-        <img src="https://i.ibb.co/67VF7N5R/Facebook.png" alt="Facebook" border="0"/>
-        <span>Facebook</span>
-      </a>
-      <a href="https://www.tiktok.com/@hoangkimberry" target="_blank">
-        <img src="https://i.ibb.co/cStFGVqG/Tiktok.png" alt="Tiktok" border="0"/>
-        <span>TikTok</span>
-      </a>
-      <a href="https://www.instagram.com/hoangkimberry" target="_blank">
-        <img src="https://i.ibb.co/39gCrw9n/Instagram.png" alt="Instagram" border="0"/>
-        <span>Instagram</span>
-      </a>
-      <a href="https://nhantien.momo.vn/hoangkimberry" target="_blank">
-        <img src="https://i.ibb.co/KpRgSv04/Momo.png" alt="Momo" border="0"/>
-        <span>Momo</span>
-      </a>
-      <a href="https://i.ibb.co/wNnkr6ts/Andy-Vcb.jpg" target="_blank">
-        <img src="https://i.ibb.co/WNDG8rdx/Vietcombank.png" alt="Vietcombank" border="0"/>
-        <span>VCB</span>
-      </a>
+      <a href="https://zalo.me/0972133680" target="_blank"><img src="https://i.ibb.co/d4nRhVQV/Zalo.png"/><span>Zalo</span></a>
+      <a href="https://wa.me/0972133680" target="_blank"><img src="https://i.ibb.co/XxqRB3Qg/Whatsapp.png"/><span>WhatsApp</span></a>
+      <a href="https://i.ibb.co/QFSCgkCP/Andy-Wechat.jpg"><img src="https://i.ibb.co/Zz41gSrk/Wechat.png"/><span>WeChat</span></a>
+      <a href="mailto:sales1@longhoanglogistics.com"><img src="https://i.ibb.co/nqyMXyNM/Email.png"/><span>Email</span></a>
+      <a href="https://goo.gl/maps/your-location" target="_blank"><img src="https://i.ibb.co/7dTZHSwV/Map.png"/><span>Địa Chỉ</span></a>
+      <a href="https://www.longhoanglogistics.com" target="_blank"><img src="https://i.ibb.co/Gf69QR4R/Website.png"/><span>Website</span></a>
+      <a href="https://i.ibb.co/VY01h09d/Profile.png"><img src="https://i.ibb.co/VY01h09d/Profile.png"/><span>Profile</span></a>
+      <a href="https://www.facebook.com/share/1BtMe8vCaB/?mibextid=wwXIfr" target="_blank"><img src="https://i.ibb.co/67VF7N5R/Facebook.png"/><span>Facebook</span></a>
+      <a href="https://www.tiktok.com/@hoangkimberry" target="_blank"><img src="https://i.ibb.co/cStFGVqG/Tiktok.png"/><span>TikTok</span></a>
+      <a href="https://www.instagram.com/hoangkimberry" target="_blank"><img src="https://i.ibb.co/39gCrw9n/Instagram.png"/><span>Instagram</span></a>
+      <a href="https://nhantien.momo.vn/hoangkimberry" target="_blank"><img src="https://i.ibb.co/KpRgSv04/Momo.png"/><span>Momo</span></a>
+      <a href="https://i.ibb.co/wNnkr6ts/Andy-Vcb.jpg"><img src="https://i.ibb.co/WNDG8rdx/Vietcombank.png"/><span>VCB</span></a>
     </div>
+  </div>
 
-    <!-- ... -->
+  <!-- Popup ảnh -->
+  <div id="imagePopup" class="popup" onclick="closePopup()">
+    <img id="popupImage" src="" alt="Preview">
   </div>
 
   <script>
@@ -288,9 +284,7 @@
         * Cam kết giao hàng đúng tiến độ, tối ưu chi phí.<br>
         * Sẵn sàng hỗ trợ 24/7.`,
         consult: "Đăng Ký Tư Vấn",
-        roles: [
-          "Leader Team Sale 1 – Công ty Long Hoàng Logistics"
-        ]
+        roles: ["Leader Team Sale 1 – Công ty Long Hoàng Logistics"]
       },
       en: {
         title: "Mr. Andy",
@@ -299,11 +293,9 @@
         * Specialized in FCL, LCL, and Air Freight.<br>
         * Providing end-to-end services: Consulting – Quotation – Booking – Shipment Tracking.<br>
         * Committed to on-time delivery and cost optimization.<br>
-        * Available for 24/7 support and coordination.`,
+        * Available 24/7 for support.`,
         consult: "Register for Consultation",
-        roles: [
-          "Leader Team Sale 1 – Long Hoang Logistics Company"
-        ]
+        roles: ["Leader Team Sale 1 – Long Hoang Logistics Company"]
       }
     };
 
@@ -311,7 +303,6 @@
       document.getElementById("title").innerHTML = translations[lang].title;
       document.getElementById("description").innerHTML = translations[lang].description;
       document.getElementById("consultButton").innerHTML = translations[lang].consult;
-
       for (let i = 0; i < translations[lang].roles.length; i++) {
         document.getElementById(`role${i + 1}`).innerHTML = translations[lang].roles[i];
       }
@@ -326,11 +317,33 @@ TEL:0972133680
 EMAIL:sales1@longhoanglogistics.com
 END:VCARD
       `], { type: 'text/vcard' });
-
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = 'Lamngocvu.vcf';
+      link.download = 'LamNgocVu.vcf';
       link.click();
+    }
+
+    // --- Popup ảnh tự động ---
+    document.addEventListener("DOMContentLoaded", function() {
+      document.querySelectorAll(".icon-links a").forEach(link => {
+        const href = link.getAttribute("href");
+        if (href && (href.endsWith(".jpg") || href.endsWith(".png") || href.endsWith(".jpeg"))) {
+          link.addEventListener("click", function(e) {
+            e.preventDefault();
+            showImagePopup(href);
+          });
+        }
+      });
+    });
+
+    function showImagePopup(url) {
+      const popup = document.getElementById("imagePopup");
+      document.getElementById("popupImage").src = url;
+      popup.style.display = "flex";
+    }
+
+    function closePopup() {
+      document.getElementById("imagePopup").style.display = "none";
     }
   </script>
 </body>
