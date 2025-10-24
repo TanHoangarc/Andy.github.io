@@ -1,162 +1,345 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Liên hệ - Andy</title>
-<style>
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: #f4f4f4;
-    color: #333;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NCV Card - Lâm Ngọc Vũ</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #E5E5E5;
+      text-align: center;
+      padding: 20px;
+    }
 
-  /* Ảnh bìa */
-  .cover {
-    position: relative;
-    width: 100%;
-    height: 250px;
-    background: url('https://i.ibb.co/7k3zRJLx/Andy-Cover.jpg') center/cover no-repeat;
-  }
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      background-color: #B2F2BB;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
 
-  /* Avatar */
-  .avatar {
-    position: absolute;
-    bottom: -70px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    border: 5px solid #fff;
-    background: url('https://i.ibb.co/8BzR6sX/Andy-Avatar.jpg') center/cover no-repeat;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  }
+    .avatar-box {
+      position: relative;
+      display: inline-block;
+    }
+    .avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 5px solid #fff;
+      object-fit: cover;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .qr-top {
+      position: absolute;
+      bottom: 0;
+      right: -40px;
+      background: white;
+      border-radius: 2px;
+      padding: 4px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+    }
 
-  /* Thông tin */
-  .info {
-    text-align: center;
-    margin-top: 90px;
-  }
-  .info h1 {
-    font-size: 1.5em;
-    margin-bottom: 5px;
-  }
-  .info p {
-    color: #666;
-    font-size: 0.95em;
-  }
+    h1 {
+      margin: 10px 0 4px;
+      font-size: 22px;
+      color: #333;
+    }
 
-  /* Liên kết */
-  .links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 25px auto;
-    gap: 16px;
-    max-width: 480px;
-  }
-  .links a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 14px;
-    background: #fff;
-    border-radius: 12px;
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: all 0.2s;
-  }
-  .links a:hover {
-    background: #5C9EAD;
-    color: #fff;
-    transform: scale(1.05);
-  }
-  .links img {
-    width: 32px;
-    height: 32px;
-  }
+    .subtitle {
+      color: #357;
+      margin-bottom: 16px;
+    }
 
-  /* Popup ảnh */
-  .popup {
-    display: none;
-    position: fixed;
-    z-index: 2000;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.8);
-    justify-content: center;
-    align-items: center;
-  }
-  .popup img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(255,255,255,0.3);
-    animation: fadeIn 0.3s ease;
-  }
-  @keyframes fadeIn {
-    from {opacity: 0; transform: scale(0.9);}
-    to {opacity: 1; transform: scale(1);}
-  }
-</style>
+    .phone-button {
+      background-color: #8b004f;
+      color: white;
+      font-size: 18px;
+      padding: 12px;
+      border-radius: 40px;
+      text-decoration: none;
+      display: inline-block;
+      width: 80%;
+      margin-bottom: 16px;
+    }
+
+    .share-buttons {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+      padding: 10px 0;
+      background-color: #f8f8f8;
+      border-radius: 12px;
+    }
+
+    .share-buttons div {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: #333;
+      cursor: pointer;
+    }
+
+    iframe {
+      width: 100%;
+      max-width: 100%;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+
+    .video-button {
+      background-color: #0033cc;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      display: inline-block;
+      margin: 10px auto;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .info {
+      margin-top: 20px;
+      text-align: left;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .role-section, .icon-links {
+      margin-top: 20px;
+    }
+
+    .role-item {
+      display: flex;
+      align-items: center;
+      background: #f0fff0;
+      border-radius: 10px;
+      padding: 8px;
+      margin: 6px 0;
+      justify-content: space-between;
+    }
+    .role-item img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+    .role-text {
+      flex: 1;
+      text-align: left;
+      margin-left: 10px;
+      font-size: 14px;
+    }
+
+    .icon-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .icon-links a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      font-size: 12px;
+      width: 60px;
+      color: #000;
+      cursor: pointer;
+    }
+
+    .icon-links img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 4px;
+    }
+
+    .language-switch-fixed {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 1000;
+      display: flex;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 6px 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+    }
+
+    .language-switch-fixed .flag-icon {
+      width: 30px;
+      height: 20px;
+      cursor: pointer;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      transition: transform 0.2s ease;
+    }
+
+    .language-switch-fixed .flag-icon:hover {
+      transform: scale(1.1);
+    }
+
+    /* Popup hiển thị ảnh */
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    .popup img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.3);
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.9);}
+      to {opacity: 1; transform: scale(1);}
+    }
+  </style>
 </head>
 <body>
-
-  <!-- Ảnh bìa -->
-  <div class="cover">
-    <div class="avatar"></div>
+  <div class="language-switch-fixed">
+    <img src="https://flagcdn.com/w40/vn.png" alt="Tiếng Việt" title="Tiếng Việt" onclick="switchLang('vi')" class="flag-icon">
+    <img src="https://flagcdn.com/w40/us.png" alt="English" title="English" onclick="switchLang('en')" class="flag-icon">
   </div>
 
-  <!-- Thông tin -->
-  <div class="info">
-    <h1>Andy Hoàng</h1>
-    <p>Freelancer | Excel VBA Developer | TMS Designer</p>
+  <div class="container">
+    <div class="avatar-box">
+      <img src="https://i.ibb.co/4RKTydDT/Andy.jpg" alt="Avatar" class="avatar">
+      <div class="qr-top">
+        <img src="https://i.ibb.co/P76k1ZV/Andy.jpg" alt="QR" width="80">
+      </div>
+    </div>
+    <h1 id="title">Lâm Ngọc Vũ</h1>
+    <div class="subtitle">Leader Business Development</div>
+    <a href="tel:+84972133680" class="phone-button">📞 +84 972 133 680</a>
+
+    <div class="share-buttons">
+      <div onclick="navigator.share ? navigator.share({ title: document.title, url: location.href }) : alert('Trình duyệt không hỗ trợ')">🔗 Chia sẻ</div>
+      <div onclick="downloadVCard()">📇 Lưu Danh bạ</div>
+    </div>
+
+    <iframe src="https://www.youtube.com/embed/J0MAmvy7y8k?si=MqncRvvtpViXuCQT" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+
+    <div class="video-button" id="consultButton">Đăng Ký Tư Vấn</div>
+
+    <div class="info" id="description">
+      * Kinh nghiệm nhiều năm trong lĩnh vực Logistics.<br>
+      * Chuyên về FCL, LCL và vận chuyển hàng không<br>
+      * Cung cấp trọn gói dịch vụ: Tư vấn – Báo giá – Đặt chỗ – Theo dõi lô hàng.<br>
+      * Cam kết giao hàng đúng tiến độ, tối ưu chi phí.<br>
+      * Sẵn sàng hỗ trợ 24/7.<br>
+    </div>
+
+    <div class="role-section">
+      <div class="role-item">
+        <img src="https://i.ibb.co/VY0kfHdv/Logo-Nhon-My-700x700-2-150x150.png">
+        <div class="role-text" id="role1">Leader Team Sale 1 Long Hoàng</div>
+        <span>🔗</span>
+      </div>
+    </div>
+
+    <div class="icon-links">
+      <a href="https://zalo.me/0972133680" target="_blank"><img src="https://i.ibb.co/d4nRhVQV/Zalo.png"/><span>Zalo</span></a>
+      <a href="https://wa.me/0972133680" target="_blank"><img src="https://i.ibb.co/XxqRB3Qg/Whatsapp.png"/><span>WhatsApp</span></a>
+      <a href="https://i.ibb.co/QFSCgkCP/Andy-Wechat.jpg"><img src="https://i.ibb.co/Zz41gSrk/Wechat.png"/><span>WeChat</span></a>
+      <a href="mailto:sales1@longhoanglogistics.com"><img src="https://i.ibb.co/nqyMXyNM/Email.png"/><span>Email</span></a>
+      <a href="https://goo.gl/maps/your-location" target="_blank"><img src="https://i.ibb.co/7dTZHSwV/Map.png"/><span>Địa Chỉ</span></a>
+      <a href="https://www.longhoanglogistics.com" target="_blank"><img src="https://i.ibb.co/Gf69QR4R/Website.png"/><span>Website</span></a>
+      <a href="https://i.ibb.co/VY01h09d/Profile.png"><img src="https://i.ibb.co/VY01h09d/Profile.png"/><span>Profile</span></a>
+      <a href="https://www.facebook.com/share/1BtMe8vCaB/?mibextid=wwXIfr" target="_blank"><img src="https://i.ibb.co/67VF7N5R/Facebook.png"/><span>Facebook</span></a>
+      <a href="https://www.tiktok.com/@hoangkimberry" target="_blank"><img src="https://i.ibb.co/cStFGVqG/Tiktok.png"/><span>TikTok</span></a>
+      <a href="https://www.instagram.com/hoangkimberry" target="_blank"><img src="https://i.ibb.co/39gCrw9n/Instagram.png"/><span>Instagram</span></a>
+      <a href="https://nhantien.momo.vn/hoangkimberry" target="_blank"><img src="https://i.ibb.co/KpRgSv04/Momo.png"/><span>Momo</span></a>
+      <a href="https://i.ibb.co/wNnkr6ts/Andy-Vcb.jpg"><img src="https://i.ibb.co/WNDG8rdx/Vietcombank.png"/><span>VCB</span></a>
+    </div>
   </div>
 
-  <!-- Các liên kết -->
-  <div class="links">
-    <a href="#" class="popup-image" data-img="https://i.ibb.co/wNnkr6ts/Andy-Vcb.jpg">
-      <img src="https://i.ibb.co/WNDG8rdx/Vietcombank.png" alt="Vietcombank">
-      <span>VCB</span>
-    </a>
-    <a href="#" class="popup-image" data-img="https://i.ibb.co/QFSCgkCP/Andy-Wechat.jpg">
-      <img src="https://i.ibb.co/Zz41gSrk/Wechat.png" alt="Wechat">
-      <span>WeChat</span>
-    </a>
-    <a href="#" class="popup-image" data-img="https://drive.google.com/uc?id=1wyPCBaCLTiUx3aWMwIX3X1WryfnTL-Lp">
-      <img src="https://i.ibb.co/VY01h09d/Profile.png" alt="Profile">
-      <span>Profile</span>
-    </a>
-    <a href="mailto:andy@example.com">
-      <img src="https://i.ibb.co/KWbGV5dT/Email.png" alt="Email">
-      <span>Email</span>
-    </a>
-  </div>
-
-  <!-- Popup hiển thị ảnh -->
+  <!-- Popup ảnh -->
   <div id="imagePopup" class="popup" onclick="closePopup()">
     <img id="popupImage" src="" alt="Preview">
   </div>
 
   <script>
-    // Bắt sự kiện click trên tất cả các icon popup
+    const translations = {
+      vi: {
+        title: "Lâm Ngọc Vũ",
+        description: `
+        * Kinh nghiệm nhiều năm trong lĩnh vực Logistics.<br>
+        * Chuyên về FCL, LCL và vận chuyển hàng không.<br>
+        * Cung cấp trọn gói dịch vụ: Tư vấn – Báo giá – Đặt chỗ – Theo dõi lô hàng.<br>
+        * Cam kết giao hàng đúng tiến độ, tối ưu chi phí.<br>
+        * Sẵn sàng hỗ trợ 24/7.`,
+        consult: "Đăng Ký Tư Vấn",
+        roles: ["Leader Team Sale 1 – Công ty Long Hoàng Logistics"]
+      },
+      en: {
+        title: "Mr. Andy",
+        description: `
+        * Many years of experience in the Logistics industry.<br>
+        * Specialized in FCL, LCL, and Air Freight.<br>
+        * Providing end-to-end services: Consulting – Quotation – Booking – Shipment Tracking.<br>
+        * Committed to on-time delivery and cost optimization.<br>
+        * Available 24/7 for support.`,
+        consult: "Register for Consultation",
+        roles: ["Leader Team Sale 1 – Long Hoang Logistics Company"]
+      }
+    };
+
+    function switchLang(lang) {
+      document.getElementById("title").innerHTML = translations[lang].title;
+      document.getElementById("description").innerHTML = translations[lang].description;
+      document.getElementById("consultButton").innerHTML = translations[lang].consult;
+      for (let i = 0; i < translations[lang].roles.length; i++) {
+        document.getElementById(`role${i + 1}`).innerHTML = translations[lang].roles[i];
+      }
+    }
+
+    function downloadVCard() {
+      const blob = new Blob([`
+BEGIN:VCARD
+VERSION:3.0
+FN:Ngoc Vu
+TEL:0972133680
+EMAIL:sales1@longhoanglogistics.com
+END:VCARD
+      `], { type: 'text/vcard' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'LamNgocVu.vcf';
+      link.click();
+    }
+
+    // --- Popup ảnh tự động ---
     document.addEventListener("DOMContentLoaded", function() {
-      document.querySelectorAll(".popup-image").forEach(el => {
-        el.addEventListener("click", function(e) {
-          e.preventDefault();
-          const imgSrc = this.getAttribute("data-img");
-          showImagePopup(imgSrc);
-        });
+      document.querySelectorAll(".icon-links a").forEach(link => {
+        const href = link.getAttribute("href");
+        if (href && (href.endsWith(".jpg") || href.endsWith(".png") || href.endsWith(".jpeg"))) {
+          link.addEventListener("click", function(e) {
+            e.preventDefault();
+            showImagePopup(href);
+          });
+        }
       });
     });
 
     function showImagePopup(url) {
+      const popup = document.getElementById("imagePopup");
       document.getElementById("popupImage").src = url;
-      document.getElementById("imagePopup").style.display = "flex";
+      popup.style.display = "flex";
     }
 
     function closePopup() {
