@@ -13,11 +13,14 @@ if (!rootElement) {
 const Root = () => {
   const [view, setView] = useState<'app' | 'admin'>('app');
   const [profileData, setProfileData] = useState<UserProfile>(DEFAULT_PROFILE);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Đánh dấu component đã mount để ẩn loader (nếu cần xử lý thủ công)
-    setMounted(true);
+    // Ẩn loading spinner thủ công nếu React đã chạy
+    const loader = document.querySelector('.initial-loader') as HTMLElement;
+    if (loader) {
+      loader.style.opacity = '0';
+      setTimeout(() => loader.remove(), 500);
+    }
 
     const params = new URLSearchParams(window.location.search);
     
@@ -53,8 +56,6 @@ const Root = () => {
   return <App data={profileData} />;
 };
 
-console.log("Starting app...");
-
 try {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
@@ -62,11 +63,10 @@ try {
       <Root />
     </React.StrictMode>
   );
-  console.log("App rendered successfully");
 } catch (error) {
   console.error("Error rendering app:", error);
   // Hiển thị lỗi ra màn hình nếu quá trình render thất bại
-  rootElement.innerHTML = `<div style="padding: 20px; color: red; text-align: center;">
+  rootElement.innerHTML = `<div style="padding: 20px; color: red; text-align: center; background: white; height: 100vh;">
     <h3>Có lỗi xảy ra khi tải ứng dụng</h3>
     <p>${error instanceof Error ? error.message : String(error)}</p>
   </div>`;
