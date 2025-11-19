@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "homepage": "https://tanhoangarc.github.io/Andy.github.io",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

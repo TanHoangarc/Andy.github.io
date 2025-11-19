@@ -4,7 +4,8 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: './', // Ensures relative paths for assets, critical for GitHub Pages
+  // QUAN TRỌNG: Đường dẫn này phải khớp với tên repository trên GitHub
+  base: '/Andy.github.io/', 
   build: {
     outDir: 'dist',
     assetsDir: 'assets',

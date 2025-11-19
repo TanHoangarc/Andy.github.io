@@ -50,8 +50,38 @@
         -ms-overflow-style: none;
         scrollbar-width: none;
       }
+      
+      /* Loading Spinner Styles */
+      .initial-loader {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #B2F2BB;
+        color: #8b004f;
+        font-family: sans-serif;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 9999;
+      }
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid rgba(255, 255, 255, 0.5);
+        border-top: 5px solid #8b004f;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
     </style>
-  <script type="importmap">
+<script type="importmap">
 {
   "imports": {
     "react": "https://aistudiocdn.com/react@^19.2.0",
@@ -66,7 +96,13 @@
 <link rel="stylesheet" href="/index.css">
 </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Loading UI hiển thị trước khi React tải xong -->
+      <div class="initial-loader">
+        <div class="spinner"></div>
+        <p style="font-weight: bold;">Đang tải thông tin...</p>
+      </div>
+    </div>
     <script type="module" src="./index.tsx"></script>
   <script type="module" src="/index.tsx"></script>
 </body>
