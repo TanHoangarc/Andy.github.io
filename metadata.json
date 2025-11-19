@@ -1,0 +1,7 @@
+{
+  "name": "NCV Card - Lâm Ngọc Vũ",
+  "description": "Digital Business Card for Lâm Ngọc Vũ - Logistics Specialist",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
