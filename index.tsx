@@ -15,11 +15,16 @@ const Root = () => {
   const [profileData, setProfileData] = useState<UserProfile>(DEFAULT_PROFILE);
 
   useEffect(() => {
-    // Ẩn loading spinner thủ công nếu React đã chạy
+    // Ẩn loading spinner sau khi React component đã mount
     const loader = document.querySelector('.initial-loader') as HTMLElement;
     if (loader) {
-      loader.style.opacity = '0';
-      setTimeout(() => loader.remove(), 500);
+      // Thêm độ trễ nhỏ để đảm bảo render hoàn tất
+      setTimeout(() => {
+        loader.style.opacity = '0';
+        setTimeout(() => {
+           if (loader.parentNode) loader.parentNode.removeChild(loader);
+        }, 500);
+      }, 100);
     }
 
     const params = new URLSearchParams(window.location.search);
@@ -34,20 +39,21 @@ const Root = () => {
     // Check for Specific User ID
     const userId = params.get('id');
     if (userId) {
-      const stored = localStorage.getItem('ncv_cards_db');
-      if (stored) {
-        const profiles = JSON.parse(stored) as UserProfile[];
-        const found = profiles.find(p => p.id === userId);
-        if (found) {
-          setProfileData(found);
-          document.title = found.content.vi.title;
+      try {
+        const stored = localStorage.getItem('ncv_cards_db');
+        if (stored) {
+          const profiles = JSON.parse(stored) as UserProfile[];
+          const found = profiles.find(p => p.id === userId);
+          if (found) {
+            setProfileData(found);
+            document.title = found.content.vi.title;
+          }
         }
+      } catch (e) {
+        console.error("Failed to load profile", e);
       }
     }
   }, []);
-
-  // Fallback an toàn nếu có lỗi render
-  if (!profileData) return null;
 
   if (view === 'admin') {
     return <Admin />;
@@ -56,18 +62,9 @@ const Root = () => {
   return <App data={profileData} />;
 };
 
-try {
-  const root = ReactDOM.createRoot(rootElement);
-  root.render(
-    <React.StrictMode>
-      <Root />
-    </React.StrictMode>
-  );
-} catch (error) {
-  console.error("Error rendering app:", error);
-  // Hiển thị lỗi ra màn hình nếu quá trình render thất bại
-  rootElement.innerHTML = `<div style="padding: 20px; color: red; text-align: center; background: white; height: 100vh;">
-    <h3>Có lỗi xảy ra khi tải ứng dụng</h3>
-    <p>${error instanceof Error ? error.message : String(error)}</p>
-  </div>`;
-}
+const root = ReactDOM.createRoot(rootElement);
+root.render(
+  <React.StrictMode>
+    <Root />
+  </React.StrictMode>
+);

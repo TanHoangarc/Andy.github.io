@@ -41,6 +41,8 @@
     <style>
       body {
         background-color: #E5E5E5;
+        margin: 0;
+        padding: 0;
       }
       /* Hide scrollbar for cleaner UI in modals */
       .no-scrollbar::-webkit-scrollbar {
@@ -81,36 +83,8 @@
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
       }
-      
-      /* Error Display Style */
-      #global-error {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        padding: 20px;
-        background-color: #fee2e2;
-        color: #991b1b;
-        z-index: 10000;
-        font-family: monospace;
-        font-size: 12px;
-        border-bottom: 1px solid #ef4444;
-      }
     </style>
-    <!-- Script bắt lỗi toàn cục: Nếu JS sập, lỗi sẽ hiện ra màn hình thay vì treo loader -->
-    <script>
-      window.onerror = function(message, source, lineno, colno, error) {
-        var errorBox = document.getElementById('global-error');
-        var loader = document.querySelector('.initial-loader');
-        if (errorBox) {
-          errorBox.style.display = 'block';
-          errorBox.innerHTML = '<strong>Lỗi Hệ Thống:</strong><br/>' + message + '<br/>Tại: ' + source + ':' + lineno;
-        }
-        if (loader) loader.style.display = 'none'; // Ẩn loader để thấy lỗi
-      };
-    </script>
-<script type="importmap">
+  <script type="importmap">
 {
   "imports": {
     "react": "https://aistudiocdn.com/react@^19.2.0",
@@ -125,7 +99,6 @@
 <link rel="stylesheet" href="/index.css">
 </head>
   <body>
-    <div id="global-error"></div>
     <div id="root">
       <!-- Loading UI hiển thị trước khi React tải xong -->
       <div class="initial-loader">

@@ -9,5 +9,6 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
+    emptyOutDir: true, // Đảm bảo xóa sạch thư mục dist cũ trước khi build mới
   },
 });
