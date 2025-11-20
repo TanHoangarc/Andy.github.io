@@ -40,17 +40,6 @@
       .no-scrollbar::-webkit-scrollbar { display: none; }
       .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
-<script type="importmap">
-{
-  "imports": {
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
-    "vite": "https://aistudiocdn.com/vite@^7.2.2",
-    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
-  }
-}
-</script>
 </head>
   <body>
     <div id="root"></div>
@@ -100,8 +89,9 @@
       const DEFAULT_QR_IMAGES = {
         main: "https://i.ibb.co/P76k1ZV/Andy.jpg",
         wechat: "https://i.ibb.co/QFSCgkCP/Andy-Wechat.jpg",
+        whatsapp: "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://wa.me/84972133680",
         vcb: "https://i.ibb.co/wNnkr6ts/Andy-Vcb.jpg",
-        whatsapp: "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://wa.me/84972133680" 
+        tcb: "https://upload.wikimedia.org/wikipedia/commons/0/02/Techcombank_logo.png"
       };
 
       const DEFAULT_SOCIAL_LINKS = [
@@ -117,6 +107,7 @@
         { id: 'instagram', label: 'Instagram', iconUrl: "https://i.ibb.co/39gCrw9n/Instagram.png", href: "https://www.instagram.com/hoangkimberry" },
         { id: 'momo', label: 'Momo', iconUrl: "https://i.ibb.co/KpRgSv04/Momo.png", href: "https://nhantien.momo.vn/hoangkimberry" },
         { id: 'vcb', label: 'VCB', iconUrl: "https://i.ibb.co/WNDG8rdx/Vietcombank.png", href: "#", qrImage: DEFAULT_QR_IMAGES.vcb },
+        { id: 'tcb', label: 'TCB', iconUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3a3f3t3x3z3_y3_u3_v3_w3_x3_y3_z3_w3&s", href: "#", qrImage: DEFAULT_QR_IMAGES.tcb },
       ];
 
       const SAMPLE_PROJECTS = [
@@ -125,6 +116,7 @@
         { id: 'p3', title: 'Kho bãi và phân phối', thumbnail: 'https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=800&q=80', description: 'Giải pháp kho bãi thông minh và hệ thống phân phối hàng hóa toàn quốc.', images: ['https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80'] }
       ];
 
+      // --- CONFIG START ---
       const DEFAULT_PROFILE = {
         id: 'default',
         name: 'Lâm Ngọc Vũ (Default)',
@@ -177,6 +169,7 @@
           }
         }
       };
+      // --- CONFIG END ---
 
       const loadProfile = () => {
         try {
@@ -307,10 +300,61 @@
            alert('Đã lưu vào trình duyệt! (Saved to LocalStorage)');
         };
 
-        const handleExport = () => {
+        const handleExportJson = () => {
           const dataStr = JSON.stringify(editForm, null, 2);
           navigator.clipboard.writeText(dataStr);
-          alert('Đã copy dữ liệu JSON vào bộ nhớ tạm! Bạn có thể lưu nó vào file hoặc gửi cho developer.');
+          alert('Đã copy dữ liệu JSON vào bộ nhớ tạm!');
+        };
+
+        const handleDownloadWebsite = async () => {
+          try {
+             // Chuẩn bị nội dung config mới
+             const newConfig = `// --- CONFIG START ---
+      const DEFAULT_PROFILE = ${JSON.stringify(editForm, null, 2)};
+      // --- CONFIG END ---`;
+             
+             // Đọc index.html
+             let indexContent = "";
+             try {
+               const res = await fetch('index.html');
+               if (!res.ok) throw new Error('Failed');
+               indexContent = await res.text();
+             } catch(e) {
+               alert("Không thể đọc file index.html gốc (Lỗi CORS/File). Vui lòng chạy trên Localhost/Server để dùng tính năng này.");
+               return;
+             }
+             const updatedIndex = indexContent.replace(/\/\/ --- CONFIG START ---[\s\S]*?\/\/ --- CONFIG END ---/, newConfig);
+
+             // Đọc project.html
+             let projectContent = "";
+             try {
+               const res = await fetch('project.html');
+               if (!res.ok) throw new Error('Failed');
+               projectContent = await res.text();
+             } catch(e) {
+               alert("Không tìm thấy file project.html.");
+               return;
+             }
+             const updatedProject = projectContent.replace(/\/\/ --- CONFIG START ---[\s\S]*?\/\/ --- CONFIG END ---/, newConfig);
+
+             // Tải xuống
+             const download = (text, name) => {
+                const blob = new Blob([text], {type: 'text/html'});
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = name;
+                a.click();
+             };
+
+             download(updatedIndex, 'index.html');
+             setTimeout(() => download(updatedProject, 'project.html'), 500);
+             
+             alert("Đã tạo file index.html và project.html mới với dữ liệu hiện tại. Hãy kiểm tra thư mục tải xuống!");
+
+          } catch (err) {
+             console.error(err);
+             alert("Lỗi: " + err.message);
+          }
         };
 
         // Helper to update deep state
@@ -346,8 +390,9 @@
                       <button onClick={() => setEditingId(null)} className="hover:bg-gray-700 p-2 rounded"><Icons.ArrowLeft /></button>
                       <h2 className="font-bold text-lg">Chỉnh sửa: {editForm.name}</h2>
                     </div>
-                    <div className="flex gap-3">
-                       <button onClick={handleExport} className="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded text-sm font-medium flex items-center gap-2"><Icons.Copy /> Xuất JSON</button>
+                    <div className="flex gap-2">
+                       <button onClick={handleExportJson} className="bg-gray-600 hover:bg-gray-700 px-3 py-2 rounded text-sm font-medium flex items-center gap-2"><Icons.Copy /> Copy JSON</button>
+                       <button onClick={handleDownloadWebsite} className="bg-indigo-600 hover:bg-indigo-700 px-3 py-2 rounded text-sm font-bold flex items-center gap-2 shadow-lg border border-indigo-400"><Icons.Download /> Tải Website (.html)</button>
                        <button onClick={handleSaveCurrent} className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded text-sm font-bold flex items-center gap-2 shadow-lg"><Icons.Save /> Lưu Thay Đổi</button>
                     </div>
                   </div>
@@ -515,7 +560,11 @@
               <div className="mt-12 p-6 bg-blue-50 rounded-xl text-sm text-blue-800 border border-blue-100">
                  <h4 className="font-bold mb-2 flex items-center gap-2"><Icons.AlertCircle /> Lưu ý quan trọng:</h4>
                  <p>Dữ liệu bạn chỉnh sửa ở đây được lưu vào <strong>Trình duyệt (LocalStorage)</strong>. Nó sẽ hoạt động ngay lập tức trên thiết bị này.</p>
-                 <p className="mt-2">Để cập nhật vĩnh viễn cho tất cả mọi người, hãy vào chế độ <strong>Sửa</strong> -> bấm <strong>Xuất JSON</strong> -> Gửi đoạn mã đó cho kỹ thuật viên để cập nhật vào mã nguồn.</p>
+                 <p className="mt-2">Để cập nhật vĩnh viễn cho tất cả mọi người:</p>
+                 <ul className="list-disc pl-5 mt-1">
+                    <li>Vào chế độ <strong>Sửa</strong> -> bấm <strong>Tải Website (.html)</strong> để tải file code mới về máy -> Upload đè lên host.</li>
+                    <li>Hoặc bấm <strong>Copy JSON</strong> -> Gửi đoạn mã đó cho kỹ thuật viên.</li>
+                 </ul>
               </div>
             </div>
           </div>
