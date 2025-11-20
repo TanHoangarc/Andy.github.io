@@ -5,7 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#B2F2BB" />
     <title>NCV Card - Lâm Ngọc Vũ</title>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel để dịch JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <script>
       tailwind.config = {
         theme: {
@@ -14,97 +22,443 @@
               primary: '#B2F2BB',
               secondary: '#8b004f',
               accent: '#0033cc',
-              dark: '#333333',
-              light: '#f8f8f8',
-            },
-            fontFamily: {
-              sans: ['Arial', 'sans-serif'],
             },
             animation: {
               'fade-in': 'fadeIn 0.3s ease-out',
               'slide-up': 'slideUp 0.4s ease-out',
             },
             keyframes: {
-              fadeIn: {
-                '0%': { opacity: '0' },
-                '100%': { opacity: '1' },
-              },
-              slideUp: {
-                '0%': { transform: 'translateY(20px)', opacity: '0' },
-                '100%': { transform: 'translateY(0)', opacity: '1' },
-              }
+              fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+              slideUp: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } }
             }
           },
         },
       }
     </script>
     <style>
-      body {
-        background-color: #E5E5E5;
-        margin: 0;
-        padding: 0;
-      }
-      /* Hide scrollbar for cleaner UI in modals */
-      .no-scrollbar::-webkit-scrollbar {
-        display: none;
-      }
-      .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-      }
-      
-      /* Loading Spinner Styles */
-      .initial-loader {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #B2F2BB;
-        color: #8b004f;
-        font-family: sans-serif;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 9999;
-        transition: opacity 0.5s ease-out;
-      }
-      .spinner {
-        width: 50px;
-        height: 50px;
-        border: 5px solid rgba(255, 255, 255, 0.5);
-        border-top: 5px solid #8b004f;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin-bottom: 20px;
-      }
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
+      body { background-color: #E5E5E5; margin: 0; padding: 0; }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
-<script type="importmap">
+  <script type="importmap">
 {
   "imports": {
     "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
     "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
     "vite": "https://aistudiocdn.com/vite@^7.2.2",
     "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
   }
 }
 </script>
+<link rel="stylesheet" href="/index.css">
 </head>
   <body>
-    <div id="root">
-      <!-- Loading UI hiển thị trước khi React tải xong -->
-      <div class="initial-loader">
-        <div class="spinner"></div>
-        <p style="font-weight: bold;">Đang tải thông tin...</p>
-      </div>
-    </div>
-    <script type="module" src="./index.tsx"></script>
-  </body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const { useState, useEffect, useRef } = React;
+
+      // --- ICONS (SVG Components) ---
+      const Icons = {
+        Phone: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>,
+        Share2: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>,
+        Download: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>,
+        Home: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>,
+        Briefcase: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>,
+        Link2: () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 17H7A5 5 0 0 1 7 7h2"></path><path d="M15 7h2a5 5 0 0 1 0 10h-2"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg>,
+        ScanLine: ({size=18}) => <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>,
+        X: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>,
+        Camera: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"></path><circle cx="12" cy="13" r="3"></circle></svg>,
+        AlertCircle: () => <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>,
+        Container: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 7.7c0-.8-.7-1.28-1.5-1.75L12 1l-8.5 4.95c-.8.47-1.5 1-1.5 1.75v8.6c0 .8.7 1.28 1.5 1.75L12 23l8.5-4.95c.8-.47 1.5-1 1.5-1.75z"/><path d="M2 7.7 12 13.44 22 7.7"/><path d="M12 22.96V13.44"/></svg>,
+        Package: () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m16.5 9.4-9-5.19"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>,
+        Anchor: () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>,
+        Box: () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>,
+        Send: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>,
+        Edit: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>,
+        Trash2: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>,
+        Eye: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>,
+        Plus: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>,
+        Save: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>,
+        ArrowLeft: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      };
+
+      // --- DATA & CONSTANTS ---
+      const DEFAULT_ASSETS = {
+        avatar: "https://i.ibb.co/4RKTydDT/Andy.jpg",
+        avatarQr: "https://i.ibb.co/P76k1ZV/Andy.jpg",
+        cover: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+        roleIcon: "https://i.ibb.co/VY0kfHdv/Logo-Nhon-My-700x700-2-150x150.png",
+        flagVi: "https://flagcdn.com/w40/vn.png",
+        flagEn: "https://flagcdn.com/w40/us.png",
+      };
+
+      const DEFAULT_QR_IMAGES = {
+        main: "https://i.ibb.co/P76k1ZV/Andy.jpg",
+        wechat: "https://i.ibb.co/QFSCgkCP/Andy-Wechat.jpg",
+        vcb: "https://i.ibb.co/wNnkr6ts/Andy-Vcb.jpg",
+        whatsapp: "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://wa.me/84972133680" 
+      };
+
+      const DEFAULT_SOCIAL_LINKS = [
+        { id: 'zalo', label: 'Zalo', iconUrl: "https://i.ibb.co/d4nRhVQV/Zalo.png", href: "https://zalo.me/0972133680" },
+        { id: 'whatsapp', label: 'WhatsApp', iconUrl: "https://i.ibb.co/XxqRB3Qg/Whatsapp.png", href: "https://wa.me/0972133680", qrImage: DEFAULT_QR_IMAGES.whatsapp },
+        { id: 'wechat', label: 'WeChat', iconUrl: "https://i.ibb.co/Zz41gSrk/Wechat.png", href: "#", qrImage: DEFAULT_QR_IMAGES.wechat },
+        { id: 'email', label: 'Email', iconUrl: "https://i.ibb.co/nqyMXyNM/Email.png", href: "mailto:sales1@longhoanglogistics.com" },
+        { id: 'map', label: 'Địa Chỉ', iconUrl: "https://i.ibb.co/7dTZHSwV/Map.png", href: "https://maps.app.goo.gl/ZSVFYotTCuGWNQmW8" },
+        { id: 'website', label: 'Website', iconUrl: "https://i.ibb.co/Gf69QR4R/Website.png", href: "https://www.longhoanglogistics.com" },
+        { id: 'profile', label: 'Profile', iconUrl: "https://i.ibb.co/VY01h09d/Profile.png", href: "https://drive.google.com/file/d/1wyPCBaCLTiUx3aWMwIX3X1WryfnTL-Lp/view?usp=drive_link" },
+        { id: 'facebook', label: 'Facebook', iconUrl: "https://i.ibb.co/67VF7N5R/Facebook.png", href: "https://www.facebook.com/share/1BtMe8vCaB/?mibextid=wwXIfr" },
+        { id: 'tiktok', label: 'TikTok', iconUrl: "https://i.ibb.co/cStFGVqG/Tiktok.png", href: "https://www.tiktok.com/@hoangkimberry" },
+        { id: 'instagram', label: 'Instagram', iconUrl: "https://i.ibb.co/39gCrw9n/Instagram.png", href: "https://www.instagram.com/hoangkimberry" },
+        { id: 'momo', label: 'Momo', iconUrl: "https://i.ibb.co/KpRgSv04/Momo.png", href: "https://nhantien.momo.vn/hoangkimberry" },
+        { id: 'vcb', label: 'VCB', iconUrl: "https://i.ibb.co/WNDG8rdx/Vietcombank.png", href: "#", qrImage: DEFAULT_QR_IMAGES.vcb },
+      ];
+
+      const SAMPLE_PROJECTS = [
+        { id: 'p1', title: 'Vận chuyển siêu trường siêu trọng', thumbnail: 'https://images.unsplash.com/photo-1605218427360-69603f64ec80?auto=format&fit=crop&w=800&q=80', description: 'Dự án vận chuyển máy móc thiết bị hạng nặng cho nhà máy nhiệt điện. Đảm bảo an toàn tuyệt đối và đúng tiến độ.', images: ['https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=800&q=80', 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80'] },
+        { id: 'p2', title: 'Air Freight - Hàng xuất khẩu', thumbnail: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80', description: 'Xử lý lô hàng xuất khẩu bằng đường hàng không đi thị trường EU/US với thời gian gấp.', images: ['https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=800&q=80', 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80'] },
+        { id: 'p3', title: 'Kho bãi và phân phối', thumbnail: 'https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=800&q=80', description: 'Giải pháp kho bãi thông minh và hệ thống phân phối hàng hóa toàn quốc.', images: ['https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80'] }
+      ];
+
+      const DEFAULT_PROFILE = {
+        id: 'default',
+        name: 'Lâm Ngọc Vũ (Default)',
+        phoneContact: '+84972133680',
+        zaloContact: '0972133680',
+        assets: DEFAULT_ASSETS,
+        qrImages: DEFAULT_QR_IMAGES,
+        socialLinks: DEFAULT_SOCIAL_LINKS,
+        projects: SAMPLE_PROJECTS,
+        content: {
+          vi: {
+            title: "Lâm Ngọc Vũ",
+            subtitle: "Leader Business Development",
+            description: [
+              "Kinh nghiệm nhiều năm trong lĩnh vực Logistics.",
+              "Chuyên về FCL, LCL và vận chuyển hàng không.",
+              "Cung cấp trọn gói dịch vụ: Tư vấn – Báo giá – Đặt chỗ – Theo dõi lô hàng.",
+              "Cam kết giao hàng đúng tiến độ, tối ưu chi phí.",
+              "Sẵn sàng hỗ trợ 24/7."
+            ],
+            consultButton: "Đăng Ký Tư Vấn",
+            roles: ["Leader Team Sale 1 – Công ty Long Hoàng Logistics"],
+            saveContact: "Lưu Danh bạ",
+            share: "Chia sẻ",
+            scanQr: "Quét mã",
+            close: "Đóng",
+            projectsTitle: "Dự Án Tiêu Biểu",
+            backToProjects: "Quay lại danh sách",
+            consultationForm: { title: "Yêu Cầu Báo Giá", goodsType: "Loại Hàng hóa", pol: "Cảng đi (POL)", pod: "Cảng đến (POD)", volume: "Khối lượng (Volume)", submit: "Báo Giá Qua Zalo", alertCopied: "Nội dung đã được copy! Vui lòng dán vào cuộc trò chuyện Zalo." }
+          },
+          en: {
+            title: "Mr. Andy",
+            subtitle: "Leader Business Development",
+            description: [
+              "Many years of experience in the Logistics industry.",
+              "Specialized in FCL, LCL, and Air Freight.",
+              "Providing end-to-end services: Consulting – Quotation – Booking – Shipment Tracking.",
+              "Committed to on-time delivery and cost optimization.",
+              "Available 24/7 for support."
+            ],
+            consultButton: "Register for Consultation",
+            roles: ["Leader Team Sale 1 – Long Hoang Logistics Company"],
+            saveContact: "Save Contact",
+            share: "Share",
+            scanQr: "Scan QR",
+            close: "Close",
+            projectsTitle: "Featured Projects",
+            backToProjects: "Back to Projects",
+            consultationForm: { title: "Request Quotation", goodsType: "Type of Goods", pol: "Port of Loading", pod: "Port of Discharge", volume: "Volume", submit: "Get Quote via Zalo", alertCopied: "Content copied! Please paste into Zalo chat." }
+          }
+        }
+      };
+
+      const loadProfile = () => {
+        try {
+          const stored = localStorage.getItem('ncv_cards_db');
+          if (stored) {
+            const profiles = JSON.parse(stored);
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            if (id) return profiles.find(p => p.id === id) || DEFAULT_PROFILE;
+            return profiles[0] || DEFAULT_PROFILE;
+          }
+        } catch (e) {}
+        return DEFAULT_PROFILE;
+      };
+
+      // --- COMPONENTS ---
+
+      const ImageModal = ({ isOpen, imageUrl, onClose, onScanClick, title, description }) => {
+        if (!isOpen || !imageUrl) return null;
+        return (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 backdrop-blur-sm animate-fade-in p-4" onClick={onClose}>
+            <div className="relative bg-white rounded-2xl overflow-hidden shadow-2xl max-w-sm w-full animate-slide-up" onClick={e => e.stopPropagation()}>
+              <div className="flex justify-between items-center p-4 border-b">
+                <h3 className="font-bold text-gray-800">{title || 'QR Code'}</h3>
+                <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded-full transition"><Icons.X /></button>
+              </div>
+              <div className="p-6 flex flex-col items-center justify-center bg-gray-50">
+                <img src={imageUrl} alt="QR Display" className="w-64 h-64 object-contain rounded-lg shadow-lg border-4 border-white" />
+                <p className="mt-4 text-sm text-gray-500 text-center">{description || 'Quét mã này để kết nối'}</p>
+              </div>
+              <div className="p-4 bg-white border-t flex gap-3">
+                <button onClick={() => { window.open(imageUrl, '_blank'); }} className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 transition"><Icons.Download /> <span>Lưu</span></button>
+                {onScanClick && <button onClick={() => { onClose(); onScanClick(); }} className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700 transition shadow-blue-200 shadow-lg"><Icons.ScanLine /> <span>Quét Mã</span></button>}
+              </div>
+            </div>
+          </div>
+        );
+      };
+
+      const QRScannerModal = ({ isOpen, onClose, label }) => {
+        const videoRef = useRef(null);
+        const [error, setError] = useState(null);
+
+        useEffect(() => {
+          let stream = null;
+          if (isOpen) {
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+              .then(s => { stream = s; if (videoRef.current) { videoRef.current.srcObject = stream; videoRef.current.play(); }})
+              .catch(err => setError("Không thể truy cập camera. Vui lòng kiểm tra quyền hoặc sử dụng HTTPS."));
+          }
+          return () => { if (stream) stream.getTracks().forEach(t => t.stop()); };
+        }, [isOpen]);
+
+        if (!isOpen) return null;
+        return (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 animate-fade-in">
+            <div className="relative w-full max-w-md h-full flex flex-col">
+              <div className="flex justify-between items-center p-4 text-white bg-black bg-opacity-50 absolute top-0 w-full z-10">
+                <h2 className="text-lg font-bold flex items-center gap-2"><Icons.Camera /> {label}</h2>
+                <button onClick={onClose} className="p-2 bg-white/20 rounded-full hover:bg-white/30 transition"><Icons.X /></button>
+              </div>
+              <div className="flex-1 bg-black relative flex items-center justify-center overflow-hidden">
+                {!error ? (
+                  <>
+                    <video ref={videoRef} className="absolute inset-0 w-full h-full object-cover" playsInline muted />
+                    <div className="relative z-10 w-64 h-64 border-2 border-white/50 rounded-lg overflow-hidden"><div className="w-full h-1 bg-green-500 absolute top-0 animate-[scan_2s_infinite]"></div></div>
+                  </>
+                ) : <div className="text-white text-center p-4"><Icons.AlertCircle /><p className="mt-2">{error}</p></div>}
+              </div>
+            </div>
+            <style>{`@keyframes scan { 0% { top: 0%; opacity: 1; } 50% { opacity: 0.5; } 100% { top: 100%; opacity: 0; } }`}</style>
+          </div>
+        );
+      };
+
+      const ConsultationModal = ({ isOpen, onClose, translations, zaloLink }) => {
+        const [formData, setFormData] = useState({ goodsType: '', pol: '', pod: '', volume: '' });
+        const [isCopied, setIsCopied] = useState(false);
+        if (!isOpen) return null;
+        
+        const handleSubmit = async (e) => {
+          e.preventDefault();
+          const message = `📢 *YÊU CẦU BÁO GIÁ*\n📦 *${translations.goodsType}:* ${formData.goodsType}\n🚩 *${translations.pol}:* ${formData.pol}\n🏁 *${translations.pod}:* ${formData.pod}\n📊 *${translations.volume}:* ${formData.volume}`;
+          try { await navigator.clipboard.writeText(message); setIsCopied(true); setTimeout(() => { window.open(zaloLink, '_blank'); setIsCopied(false); }, 1000); } 
+          catch (err) { window.open(zaloLink, '_blank'); }
+        };
+
+        return (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 backdrop-blur-sm animate-fade-in p-4">
+            <div className="relative bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden animate-slide-up flex flex-col max-h-[90vh]">
+              <div className="bg-gradient-to-r from-[#8b004f] to-[#b20066] p-4 flex justify-between items-center text-white">
+                <h2 className="text-lg font-bold flex items-center gap-2"><Icons.Container /> {translations.title}</h2>
+                <button onClick={onClose}><Icons.X /></button>
+              </div>
+              <form onSubmit={handleSubmit} className="p-6 space-y-4 overflow-y-auto no-scrollbar">
+                <div className="space-y-1"><label className="flex gap-2 text-sm font-medium"><Icons.Package /> {translations.goodsType}</label><input required className="w-full p-3 bg-gray-50 border rounded-xl" value={formData.goodsType} onChange={e => setFormData({...formData, goodsType: e.target.value})} /></div>
+                <div className="space-y-1"><label className="flex gap-2 text-sm font-medium"><Icons.Anchor /> {translations.pol}</label><input required className="w-full p-3 bg-gray-50 border rounded-xl" value={formData.pol} onChange={e => setFormData({...formData, pol: e.target.value})} /></div>
+                <div className="space-y-1"><label className="flex gap-2 text-sm font-medium"><Icons.Anchor /> {translations.pod}</label><input required className="w-full p-3 bg-gray-50 border rounded-xl" value={formData.pod} onChange={e => setFormData({...formData, pod: e.target.value})} /></div>
+                <div className="space-y-1"><label className="flex gap-2 text-sm font-medium"><Icons.Box /> {translations.volume}</label><input required className="w-full p-3 bg-gray-50 border rounded-xl" value={formData.volume} onChange={e => setFormData({...formData, volume: e.target.value})} /></div>
+                {isCopied && <div className="bg-green-100 text-green-700 p-3 rounded-lg text-sm text-center">{translations.alertCopied}</div>}
+                <button type="submit" className="w-full bg-[#0068FF] text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2"><Icons.Send /> {translations.submit}</button>
+              </form>
+            </div>
+          </div>
+        );
+      };
+
+      // --- ADMIN PAGE ---
+      const Admin = () => {
+        const [profiles, setProfiles] = useState([]);
+        const [editForm, setEditForm] = useState(DEFAULT_PROFILE);
+        const [editingId, setEditingId] = useState(null);
+
+        useEffect(() => {
+          const stored = localStorage.getItem('ncv_cards_db');
+          setProfiles(stored ? JSON.parse(stored) : [DEFAULT_PROFILE]);
+        }, []);
+
+        const save = (newProfiles) => {
+          localStorage.setItem('ncv_cards_db', JSON.stringify(newProfiles));
+          setProfiles(newProfiles);
+        };
+
+        if (editingId) {
+           return (
+             <div className="min-h-screen bg-gray-100 p-6">
+               <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-6">
+                  <div className="flex justify-between mb-4">
+                    <button onClick={() => setEditingId(null)} className="flex items-center gap-2"><Icons.ArrowLeft /> Back</button>
+                    <button onClick={() => {
+                        const updated = profiles.some(p => p.id === editForm.id) ? profiles.map(p => p.id === editForm.id ? editForm : p) : [...profiles, editForm];
+                        save(updated); setEditingId(null); alert('Saved!');
+                    }} className="bg-blue-600 text-white px-4 py-2 rounded flex gap-2"><Icons.Save /> Save</button>
+                  </div>
+                  <div className="space-y-4 h-[80vh] overflow-y-auto">
+                    <h3 className="font-bold">Cài đặt chung</h3>
+                    <input className="w-full border p-2 rounded" placeholder="Name" value={editForm.name} onChange={e => setEditForm({...editForm, name: e.target.value})} />
+                    <input className="w-full border p-2 rounded" placeholder="Phone" value={editForm.phoneContact} onChange={e => setEditForm({...editForm, phoneContact: e.target.value})} />
+                    <h3 className="font-bold">Nội dung TV</h3>
+                    <input className="w-full border p-2 rounded" value={editForm.content.vi.title} onChange={e => setEditForm({...editForm, content: {...editForm.content, vi: {...editForm.content.vi, title: e.target.value}}})} />
+                    <input className="w-full border p-2 rounded" value={editForm.content.vi.subtitle} onChange={e => setEditForm({...editForm, content: {...editForm.content, vi: {...editForm.content.vi, subtitle: e.target.value}}})} />
+                  </div>
+               </div>
+             </div>
+           )
+        }
+
+        return (
+          <div className="min-h-screen bg-gray-50 p-8">
+            <div className="flex justify-between mb-8 max-w-6xl mx-auto">
+              <h1 className="text-3xl font-bold">Quản lý Cards</h1>
+              <button onClick={() => { const newP = {...DEFAULT_PROFILE, id: Date.now().toString(), name: 'New User'}; setEditForm(newP); setEditingId(newP.id); }} className="bg-green-600 text-white px-4 py-2 rounded flex gap-2"><Icons.Plus /> New Card</button>
+            </div>
+            <div className="bg-white rounded-xl shadow overflow-hidden max-w-6xl mx-auto">
+              {profiles.map(p => (
+                <div key={p.id} className="flex justify-between p-4 border-b hover:bg-gray-50">
+                  <div className="flex gap-4 items-center">
+                    <img src={p.assets.avatar} className="w-10 h-10 rounded-full" />
+                    <div><div className="font-bold">{p.name}</div><div className="text-sm text-gray-500">{p.content.vi.subtitle}</div></div>
+                  </div>
+                  <div className="flex gap-2">
+                    <button onClick={() => { setEditForm(p); setEditingId(p.id); }} className="text-indigo-600 p-2"><Icons.Edit /></button>
+                    <button onClick={() => { if(confirm('Xóa?')) save(profiles.filter(x => x.id !== p.id)); }} className="text-red-600 p-2"><Icons.Trash2 /></button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      };
+
+      // --- MAIN HOME APP ---
+      const App = () => {
+        const [data] = useState(loadProfile());
+        const [lang, setLang] = useState('vi');
+        const [qrOpen, setQrOpen] = useState(false);
+        const [scanOpen, setScanOpen] = useState(false);
+        const [consultOpen, setConsultOpen] = useState(false);
+        const [activeQr, setActiveQr] = useState(null);
+
+        const t = data.content[lang];
+
+        const openQr = (url, title, desc) => { setActiveQr({url, title, desc}); setQrOpen(true); }
+
+        return (
+          <div className="min-h-screen bg-[#E5E5E5]">
+            <div className="container max-w-md mx-auto bg-[#B2F2BB] min-h-screen sm:min-h-[calc(100vh-40px)] sm:my-5 sm:rounded-[30px] shadow-2xl overflow-hidden flex flex-col relative">
+              
+              {/* NAV */}
+              <div className="bg-white/95 backdrop-blur z-30 flex items-center justify-between px-4 h-14 shadow-sm shrink-0 relative">
+                <div className="flex flex-1 justify-center gap-6 h-full">
+                   <button className="h-full flex flex-col justify-center px-2 text-sm font-bold uppercase text-[#8b004f] relative">
+                      <div className="flex items-center gap-2"><Icons.Home /> Home</div>
+                      <div className="absolute bottom-0 left-0 w-full h-1 bg-[#8b004f] rounded-t-full"></div>
+                   </button>
+                   <a href="project.html" className="h-full flex flex-col justify-center px-2 text-sm font-bold uppercase text-gray-400 hover:text-gray-600 transition-colors">
+                      <div className="flex items-center gap-2"><Icons.Briefcase /> Project</div>
+                   </a>
+                </div>
+                <div className="flex gap-2 absolute right-4">
+                   <button onClick={() => setLang('vi')} className={`w-7 h-5 rounded overflow-hidden transition-transform ${lang==='vi'?'ring-1 ring-green-500':'opacity-60'}`}><img src={data.assets.flagVi} className="w-full h-full object-cover"/></button>
+                   <button onClick={() => setLang('en')} className={`w-7 h-5 rounded overflow-hidden transition-transform ${lang==='en'?'ring-1 ring-green-500':'opacity-60'}`}><img src={data.assets.flagEn} className="w-full h-full object-cover"/></button>
+                </div>
+              </div>
+
+              {/* CONTENT */}
+              <div className="flex-1 overflow-y-auto no-scrollbar flex flex-col">
+                <div className="w-full h-48 relative shrink-0">
+                  <img src={data.assets.cover} className="w-full h-full object-cover" />
+                  <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#B2F2BB] via-[#B2F2BB]/60 to-transparent"></div>
+                </div>
+
+                <div className="px-6 pb-6 text-center relative z-10 -mt-24 flex-1 animate-fade-in">
+                   {/* Avatar */}
+                   <div className="relative inline-block mb-2 group">
+                      <div className="w-[240px] h-[240px] rounded-full border-4 border-white shadow-2xl overflow-hidden mx-auto bg-gray-200 relative z-10">
+                         <img src={data.assets.avatar} className="w-full h-full object-cover" onClick={() => openQr(data.assets.avatar, t.title, '')}/>
+                      </div>
+                      <button onClick={() => openQr(data.qrImages.main, 'Personal QR')} className="absolute bottom-2 right-4 z-20 bg-white p-2 rounded-xl shadow-lg hover:scale-110 transition">
+                          <img src={data.qrImages.main} className="w-14 h-14 object-contain" />
+                          <div className="absolute -bottom-2 -right-2 bg-blue-600 text-white p-1 rounded-full"><Icons.ScanLine size={12}/></div>
+                      </button>
+                   </div>
+                   
+                   <h1 className="text-2xl font-bold text-gray-800 mt-4">{t.title}</h1>
+                   <p className="text-[#357] font-medium mb-6">{t.subtitle}</p>
+
+                   <a href={`tel:${data.phoneContact}`} className="flex items-center justify-center gap-3 w-full bg-[#8b004f] text-white py-3.5 px-6 rounded-full shadow-lg hover:bg-[#700040] transition font-bold text-lg mb-6">
+                      <Icons.Phone /> <span>{data.phoneContact}</span>
+                   </a>
+
+                   <div className="grid grid-cols-2 gap-4 mb-8">
+                      <button onClick={() => navigator.share ? navigator.share({title: t.title, url: window.location.href}) : alert('Copied!')} className="flex items-center justify-center gap-2 bg-gray-100/80 py-3 rounded-xl font-medium"><Icons.Share2 /> {t.share}</button>
+                      <button className="flex items-center justify-center gap-2 bg-gray-100/80 py-3 rounded-xl font-medium"><Icons.Download /> {t.saveContact}</button>
+                   </div>
+
+                   <div className="w-full rounded-2xl overflow-hidden shadow-lg mb-6 bg-black">
+                      <div className="relative pb-[56.25%] h-0">
+                        <iframe className="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/J0MAmvy7y8k?si=MqncRvvtpViXuCQT" allowFullScreen></iframe>
+                      </div>
+                   </div>
+
+                   <button onClick={() => setConsultOpen(true)} className="bg-[#0033cc] text-white px-8 py-3 rounded-xl font-bold shadow-lg w-full mb-6">{t.consultButton}</button>
+
+                   <div className="bg-white/60 backdrop-blur-md rounded-2xl p-6 text-left shadow-sm mb-6">
+                      <ul className="space-y-2 text-gray-800 text-sm">{t.description.map((l,i) => <li key={i} className="flex gap-2"><span className="text-green-600 font-bold">✓</span>{l}</li>)}</ul>
+                   </div>
+
+                   <div className="space-y-3 mb-8">
+                      {t.roles.map((role, idx) => (
+                        <div key={idx} className="flex items-center gap-3 bg-[#f0fff0] p-3 rounded-xl border border-green-100 shadow-sm">
+                          <img src={data.assets.roleIcon} className="w-10 h-10 rounded-full" />
+                          <span className="text-sm font-semibold text-gray-700 flex-1 text-left">{role}</span>
+                          <Icons.Link2 className="text-gray-400"/>
+                        </div>
+                      ))}
+                   </div>
+
+                   <div className="grid grid-cols-4 gap-y-6 gap-x-2 mb-20">
+                      {data.socialLinks.map(link => (
+                        <button key={link.id} onClick={() => link.qrImage ? openQr(link.qrImage, link.label) : window.open(link.href, '_blank')} className="flex flex-col items-center group">
+                           <div className="w-14 h-14 bg-white rounded-2xl shadow-md flex items-center justify-center mb-2 group-hover:scale-110 transition"><img src={link.iconUrl} className="w-10 h-10 object-contain"/></div>
+                           <span className="text-xs font-medium text-gray-700">{link.label}</span>
+                        </button>
+                      ))}
+                   </div>
+                </div>
+              </div>
+            </div>
+
+            <ImageModal isOpen={qrOpen} imageUrl={activeQr?.url} title={activeQr?.title} description={activeQr?.desc} onClose={() => setQrOpen(false)} onScanClick={() => setScanOpen(true)} />
+            <QRScannerModal isOpen={scanOpen} onClose={() => setScanOpen(false)} label={t.scanQr} />
+            <ConsultationModal isOpen={consultOpen} onClose={() => setConsultOpen(false)} translations={t.consultationForm} zaloLink={`https://zalo.me/${data.zaloContact}`} />
+          </div>
+        );
+      };
+
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('admin') === 'true') {
+        root.render(<Admin />);
+      } else {
+        root.render(<App />);
+      }
+    </script>
+  <script type="module" src="/index.tsx"></script>
+</body>
 </html>
