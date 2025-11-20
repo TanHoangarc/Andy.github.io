@@ -40,18 +40,17 @@
       .no-scrollbar::-webkit-scrollbar { display: none; }
       .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
-  <script type="importmap">
+<script type="importmap">
 {
   "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
     "react": "https://aistudiocdn.com/react@^19.2.0",
     "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
     "vite": "https://aistudiocdn.com/vite@^7.2.2",
     "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
   <body>
     <div id="root"></div>
@@ -81,7 +80,11 @@
         Eye: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>,
         Plus: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>,
         Save: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>,
-        ArrowLeft: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        ArrowLeft: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>,
+        Settings: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.09a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>,
+        Image: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>,
+        Globe: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>,
+        Copy: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
       };
 
       // --- DATA & CONSTANTS ---
@@ -281,11 +284,12 @@
         );
       };
 
-      // --- ADMIN PAGE ---
+      // --- ADMIN PAGE (CMS) ---
       const Admin = () => {
         const [profiles, setProfiles] = useState([]);
         const [editForm, setEditForm] = useState(DEFAULT_PROFILE);
         const [editingId, setEditingId] = useState(null);
+        const [tab, setTab] = useState('general'); // general, assets, content_vi, content_en, social, projects
 
         useEffect(() => {
           const stored = localStorage.getItem('ncv_cards_db');
@@ -297,24 +301,183 @@
           setProfiles(newProfiles);
         };
 
+        const handleSaveCurrent = () => {
+           const updated = profiles.some(p => p.id === editForm.id) ? profiles.map(p => p.id === editForm.id ? editForm : p) : [...profiles, editForm];
+           save(updated);
+           alert('Đã lưu vào trình duyệt! (Saved to LocalStorage)');
+        };
+
+        const handleExport = () => {
+          const dataStr = JSON.stringify(editForm, null, 2);
+          navigator.clipboard.writeText(dataStr);
+          alert('Đã copy dữ liệu JSON vào bộ nhớ tạm! Bạn có thể lưu nó vào file hoặc gửi cho developer.');
+        };
+
+        // Helper to update deep state
+        const update = (path, value) => {
+           const p = path.split('.');
+           const newState = {...editForm};
+           let ref = newState;
+           for(let i=0; i<p.length-1; i++) ref = ref[p[i]];
+           ref[p[p.length-1]] = value;
+           setEditForm(newState);
+        };
+
+        // Helper for Array management (Social/Projects)
+        const updateArrayItem = (arrName, idx, field, val) => {
+           const arr = [...editForm[arrName]];
+           arr[idx] = {...arr[idx], [field]: val};
+           setEditForm({...editForm, [arrName]: arr});
+        };
+        const removeArrayItem = (arrName, idx) => {
+           setEditForm({...editForm, [arrName]: editForm[arrName].filter((_, i) => i !== idx)});
+        };
+        const addArrayItem = (arrName, item) => {
+           setEditForm({...editForm, [arrName]: [...editForm[arrName], item]});
+        };
+
         if (editingId) {
            return (
-             <div className="min-h-screen bg-gray-100 p-6">
-               <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-6">
-                  <div className="flex justify-between mb-4">
-                    <button onClick={() => setEditingId(null)} className="flex items-center gap-2"><Icons.ArrowLeft /> Back</button>
-                    <button onClick={() => {
-                        const updated = profiles.some(p => p.id === editForm.id) ? profiles.map(p => p.id === editForm.id ? editForm : p) : [...profiles, editForm];
-                        save(updated); setEditingId(null); alert('Saved!');
-                    }} className="bg-blue-600 text-white px-4 py-2 rounded flex gap-2"><Icons.Save /> Save</button>
+             <div className="min-h-screen bg-gray-100 p-4 md:p-8">
+               <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden flex flex-col h-[90vh]">
+                  {/* Header */}
+                  <div className="bg-gray-800 text-white p-4 flex justify-between items-center shrink-0">
+                    <div className="flex items-center gap-4">
+                      <button onClick={() => setEditingId(null)} className="hover:bg-gray-700 p-2 rounded"><Icons.ArrowLeft /></button>
+                      <h2 className="font-bold text-lg">Chỉnh sửa: {editForm.name}</h2>
+                    </div>
+                    <div className="flex gap-3">
+                       <button onClick={handleExport} className="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded text-sm font-medium flex items-center gap-2"><Icons.Copy /> Xuất JSON</button>
+                       <button onClick={handleSaveCurrent} className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded text-sm font-bold flex items-center gap-2 shadow-lg"><Icons.Save /> Lưu Thay Đổi</button>
+                    </div>
                   </div>
-                  <div className="space-y-4 h-[80vh] overflow-y-auto">
-                    <h3 className="font-bold">Cài đặt chung</h3>
-                    <input className="w-full border p-2 rounded" placeholder="Name" value={editForm.name} onChange={e => setEditForm({...editForm, name: e.target.value})} />
-                    <input className="w-full border p-2 rounded" placeholder="Phone" value={editForm.phoneContact} onChange={e => setEditForm({...editForm, phoneContact: e.target.value})} />
-                    <h3 className="font-bold">Nội dung TV</h3>
-                    <input className="w-full border p-2 rounded" value={editForm.content.vi.title} onChange={e => setEditForm({...editForm, content: {...editForm.content, vi: {...editForm.content.vi, title: e.target.value}}})} />
-                    <input className="w-full border p-2 rounded" value={editForm.content.vi.subtitle} onChange={e => setEditForm({...editForm, content: {...editForm.content, vi: {...editForm.content.vi, subtitle: e.target.value}}})} />
+
+                  {/* Body */}
+                  <div className="flex flex-1 overflow-hidden">
+                     {/* Sidebar Tabs */}
+                     <div className="w-48 bg-gray-50 border-r overflow-y-auto shrink-0">
+                        {[
+                          {id: 'general', label: 'Chung', icon: Icons.Settings},
+                          {id: 'assets', label: 'Hình ảnh', icon: Icons.Image},
+                          {id: 'content_vi', label: 'Nội dung (VN)', icon: Icons.Briefcase},
+                          {id: 'content_en', label: 'Nội dung (EN)', icon: Icons.Globe},
+                          {id: 'social', label: 'Mạng Xã Hội', icon: Icons.Share2},
+                          {id: 'projects', label: 'Dự án', icon: Icons.Box}
+                        ].map(t => (
+                           <button key={t.id} onClick={() => setTab(t.id)} className={`w-full text-left p-4 flex items-center gap-2 hover:bg-gray-100 transition ${tab===t.id ? 'bg-white border-l-4 border-blue-600 font-bold text-blue-600' : 'text-gray-600'}`}>
+                              <t.icon /> {t.label}
+                           </button>
+                        ))}
+                     </div>
+
+                     {/* Content Area */}
+                     <div className="flex-1 overflow-y-auto p-8 bg-white">
+                        
+                        {/* GENERAL TAB */}
+                        {tab === 'general' && (
+                          <div className="space-y-6 max-w-2xl">
+                             <h3 className="text-xl font-bold border-b pb-2">Thông tin cơ bản</h3>
+                             <div><label className="block text-sm font-medium mb-1">Tên quản lý (Admin)</label><input className="w-full border p-2 rounded" value={editForm.name} onChange={e => update('name', e.target.value)} /></div>
+                             <div><label className="block text-sm font-medium mb-1">Số điện thoại (Gọi)</label><input className="w-full border p-2 rounded" value={editForm.phoneContact} onChange={e => update('phoneContact', e.target.value)} /></div>
+                             <div><label className="block text-sm font-medium mb-1">Số Zalo (Liên hệ)</label><input className="w-full border p-2 rounded" value={editForm.zaloContact} onChange={e => update('zaloContact', e.target.value)} /></div>
+                          </div>
+                        )}
+
+                        {/* ASSETS TAB */}
+                        {tab === 'assets' && (
+                          <div className="space-y-6 max-w-2xl">
+                             <h3 className="text-xl font-bold border-b pb-2">Tài nguyên hình ảnh (Links)</h3>
+                             {Object.keys(editForm.assets).map(key => (
+                               <div key={key}>
+                                 <label className="block text-sm font-medium mb-1 capitalize">{key}</label>
+                                 <div className="flex gap-2">
+                                   <input className="w-full border p-2 rounded" value={editForm.assets[key]} onChange={e => update(`assets.${key}`, e.target.value)} />
+                                   <img src={editForm.assets[key]} className="w-10 h-10 object-cover border rounded bg-gray-100" />
+                                 </div>
+                               </div>
+                             ))}
+                             <h3 className="text-xl font-bold border-b pb-2 mt-8">Mã QR (Links)</h3>
+                             {Object.keys(editForm.qrImages).map(key => (
+                               <div key={key}>
+                                 <label className="block text-sm font-medium mb-1 capitalize">{key}</label>
+                                 <div className="flex gap-2">
+                                   <input className="w-full border p-2 rounded" value={editForm.qrImages[key]} onChange={e => update(`qrImages.${key}`, e.target.value)} />
+                                   <img src={editForm.qrImages[key]} className="w-10 h-10 object-contain border rounded bg-gray-100" />
+                                 </div>
+                               </div>
+                             ))}
+                          </div>
+                        )}
+
+                        {/* CONTENT VI TAB */}
+                        {tab === 'content_vi' && (
+                          <div className="space-y-6 max-w-2xl">
+                             <h3 className="text-xl font-bold border-b pb-2 text-green-600">Nội dung Tiếng Việt</h3>
+                             <div><label className="block text-sm font-medium mb-1">Tiêu đề chính</label><input className="w-full border p-2 rounded" value={editForm.content.vi.title} onChange={e => update('content.vi.title', e.target.value)} /></div>
+                             <div><label className="block text-sm font-medium mb-1">Chức danh</label><input className="w-full border p-2 rounded" value={editForm.content.vi.subtitle} onChange={e => update('content.vi.subtitle', e.target.value)} /></div>
+                             <div><label className="block text-sm font-medium mb-1">Mô tả (Mỗi dòng 1 câu)</label><textarea className="w-full border p-2 rounded h-32 font-mono text-sm" value={editForm.content.vi.description.join('\n')} onChange={e => update('content.vi.description', e.target.value.split('\n'))} /></div>
+                             <div><label className="block text-sm font-medium mb-1">Chức vụ (Roles)</label><textarea className="w-full border p-2 rounded h-20" value={editForm.content.vi.roles.join('\n')} onChange={e => update('content.vi.roles', e.target.value.split('\n'))} /></div>
+                          </div>
+                        )}
+
+                        {/* CONTENT EN TAB */}
+                        {tab === 'content_en' && (
+                          <div className="space-y-6 max-w-2xl">
+                             <h3 className="text-xl font-bold border-b pb-2 text-blue-600">English Content</h3>
+                             <div><label className="block text-sm font-medium mb-1">Display Name</label><input className="w-full border p-2 rounded" value={editForm.content.en.title} onChange={e => update('content.en.title', e.target.value)} /></div>
+                             <div><label className="block text-sm font-medium mb-1">Job Title</label><input className="w-full border p-2 rounded" value={editForm.content.en.subtitle} onChange={e => update('content.en.subtitle', e.target.value)} /></div>
+                             <div><label className="block text-sm font-medium mb-1">Description (Line by line)</label><textarea className="w-full border p-2 rounded h-32 font-mono text-sm" value={editForm.content.en.description.join('\n')} onChange={e => update('content.en.description', e.target.value.split('\n'))} /></div>
+                             <div><label className="block text-sm font-medium mb-1">Roles</label><textarea className="w-full border p-2 rounded h-20" value={editForm.content.en.roles.join('\n')} onChange={e => update('content.en.roles', e.target.value.split('\n'))} /></div>
+                          </div>
+                        )}
+
+                        {/* SOCIAL TAB */}
+                        {tab === 'social' && (
+                          <div className="space-y-4">
+                             <div className="flex justify-between items-center border-b pb-2">
+                                <h3 className="text-xl font-bold">Mạng xã hội</h3>
+                                <button onClick={() => addArrayItem('socialLinks', {id: Date.now().toString(), label: 'New', iconUrl: '', href: ''})} className="bg-blue-100 text-blue-600 px-3 py-1 rounded text-sm font-bold hover:bg-blue-200">+ Thêm</button>
+                             </div>
+                             {editForm.socialLinks.map((link, idx) => (
+                               <div key={idx} className="flex gap-2 items-start bg-gray-50 p-3 rounded border">
+                                 <img src={link.iconUrl || 'https://via.placeholder.com/40'} className="w-10 h-10 object-contain bg-white rounded" />
+                                 <div className="flex-1 grid grid-cols-2 gap-2">
+                                    <input placeholder="Label" className="border p-1 rounded text-sm" value={link.label} onChange={e => updateArrayItem('socialLinks', idx, 'label', e.target.value)} />
+                                    <input placeholder="Icon URL" className="border p-1 rounded text-sm" value={link.iconUrl} onChange={e => updateArrayItem('socialLinks', idx, 'iconUrl', e.target.value)} />
+                                    <input placeholder="Link / Href" className="border p-1 rounded text-sm col-span-2" value={link.href} onChange={e => updateArrayItem('socialLinks', idx, 'href', e.target.value)} />
+                                    <input placeholder="QR Image (Optional)" className="border p-1 rounded text-sm col-span-2" value={link.qrImage || ''} onChange={e => updateArrayItem('socialLinks', idx, 'qrImage', e.target.value)} />
+                                 </div>
+                                 <button onClick={() => removeArrayItem('socialLinks', idx)} className="text-red-500 p-1 hover:bg-red-50 rounded"><Icons.Trash2 /></button>
+                               </div>
+                             ))}
+                          </div>
+                        )}
+
+                        {/* PROJECTS TAB */}
+                        {tab === 'projects' && (
+                          <div className="space-y-4">
+                             <div className="flex justify-between items-center border-b pb-2">
+                                <h3 className="text-xl font-bold">Dự Án</h3>
+                                <button onClick={() => addArrayItem('projects', {id: Date.now().toString(), title: 'New Project', description: '', thumbnail: '', images: []})} className="bg-blue-100 text-blue-600 px-3 py-1 rounded text-sm font-bold hover:bg-blue-200">+ Thêm Dự Án</button>
+                             </div>
+                             {editForm.projects.map((proj, idx) => (
+                               <div key={idx} className="bg-gray-50 p-4 rounded border space-y-3">
+                                 <div className="flex justify-between">
+                                   <h4 className="font-bold text-gray-700">Project #{idx+1}</h4>
+                                   <button onClick={() => removeArrayItem('projects', idx)} className="text-red-600 text-sm hover:underline">Xóa</button>
+                                 </div>
+                                 <div><label className="text-xs font-bold text-gray-500 uppercase">Tên dự án</label><input className="w-full border p-2 rounded" value={proj.title} onChange={e => updateArrayItem('projects', idx, 'title', e.target.value)} /></div>
+                                 <div><label className="text-xs font-bold text-gray-500 uppercase">Ảnh thu nhỏ (Thumbnail)</label><input className="w-full border p-2 rounded" value={proj.thumbnail} onChange={e => updateArrayItem('projects', idx, 'thumbnail', e.target.value)} /></div>
+                                 <div><label className="text-xs font-bold text-gray-500 uppercase">Mô tả</label><textarea className="w-full border p-2 rounded h-24" value={proj.description} onChange={e => updateArrayItem('projects', idx, 'description', e.target.value)} /></div>
+                                 <div>
+                                   <label className="text-xs font-bold text-gray-500 uppercase">Ảnh chi tiết (Mỗi dòng 1 link)</label>
+                                   <textarea className="w-full border p-2 rounded h-20 font-mono text-xs" value={proj.images?.join('\n')} onChange={e => updateArrayItem('projects', idx, 'images', e.target.value.split('\n'))} />
+                                 </div>
+                               </div>
+                             ))}
+                          </div>
+                        )}
+                     </div>
                   </div>
                </div>
              </div>
@@ -322,24 +485,38 @@
         }
 
         return (
-          <div className="min-h-screen bg-gray-50 p-8">
-            <div className="flex justify-between mb-8 max-w-6xl mx-auto">
-              <h1 className="text-3xl font-bold">Quản lý Cards</h1>
-              <button onClick={() => { const newP = {...DEFAULT_PROFILE, id: Date.now().toString(), name: 'New User'}; setEditForm(newP); setEditingId(newP.id); }} className="bg-green-600 text-white px-4 py-2 rounded flex gap-2"><Icons.Plus /> New Card</button>
-            </div>
-            <div className="bg-white rounded-xl shadow overflow-hidden max-w-6xl mx-auto">
-              {profiles.map(p => (
-                <div key={p.id} className="flex justify-between p-4 border-b hover:bg-gray-50">
-                  <div className="flex gap-4 items-center">
-                    <img src={p.assets.avatar} className="w-10 h-10 rounded-full" />
-                    <div><div className="font-bold">{p.name}</div><div className="text-sm text-gray-500">{p.content.vi.subtitle}</div></div>
+          <div className="min-h-screen bg-gray-100 p-8 font-sans">
+            <div className="max-w-4xl mx-auto">
+              <div className="flex justify-between items-center mb-8">
+                <h1 className="text-3xl font-bold text-gray-800">Quản trị NCV Card</h1>
+                <button onClick={() => { const newP = {...DEFAULT_PROFILE, id: Date.now().toString(), name: 'New User'}; setEditForm(newP); setEditingId(newP.id); }} className="bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 hover:bg-green-700 transition transform hover:-translate-y-1"><Icons.Plus /> Tạo Card Mới</button>
+              </div>
+              
+              <div className="grid gap-4">
+                {profiles.map(p => (
+                  <div key={p.id} className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition flex items-center justify-between border-l-4 border-blue-500">
+                    <div className="flex gap-4 items-center">
+                      <img src={p.assets.avatar} className="w-16 h-16 rounded-full border-2 border-gray-200 object-cover" />
+                      <div>
+                        <div className="font-bold text-xl text-gray-800">{p.name}</div>
+                        <div className="text-sm text-gray-500">{p.content.vi.subtitle}</div>
+                        <div className="text-xs text-gray-400 mt-1">ID: {p.id}</div>
+                      </div>
+                    </div>
+                    <div className="flex gap-3">
+                      <button onClick={() => { window.open(`index.html?id=${p.id}`, '_blank'); }} className="p-2 text-gray-500 hover:text-blue-600 bg-gray-100 rounded-lg hover:bg-blue-50 transition"><Icons.Eye /> Xem</button>
+                      <button onClick={() => { setEditForm(p); setEditingId(p.id); }} className="p-2 text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition flex gap-2 items-center px-4"><Icons.Edit /> Sửa</button>
+                      <button onClick={() => { if(confirm('Xóa profile này?')) save(profiles.filter(x => x.id !== p.id)); }} className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition"><Icons.Trash2 /></button>
+                    </div>
                   </div>
-                  <div className="flex gap-2">
-                    <button onClick={() => { setEditForm(p); setEditingId(p.id); }} className="text-indigo-600 p-2"><Icons.Edit /></button>
-                    <button onClick={() => { if(confirm('Xóa?')) save(profiles.filter(x => x.id !== p.id)); }} className="text-red-600 p-2"><Icons.Trash2 /></button>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
+              
+              <div className="mt-12 p-6 bg-blue-50 rounded-xl text-sm text-blue-800 border border-blue-100">
+                 <h4 className="font-bold mb-2 flex items-center gap-2"><Icons.AlertCircle /> Lưu ý quan trọng:</h4>
+                 <p>Dữ liệu bạn chỉnh sửa ở đây được lưu vào <strong>Trình duyệt (LocalStorage)</strong>. Nó sẽ hoạt động ngay lập tức trên thiết bị này.</p>
+                 <p className="mt-2">Để cập nhật vĩnh viễn cho tất cả mọi người, hãy vào chế độ <strong>Sửa</strong> -> bấm <strong>Xuất JSON</strong> -> Gửi đoạn mã đó cho kỹ thuật viên để cập nhật vào mã nguồn.</p>
+              </div>
             </div>
           </div>
         );
@@ -459,6 +636,5 @@
         root.render(<App />);
       }
     </script>
-  <script type="module" src="/index.tsx"></script>
-</body>
+  </body>
 </html>
