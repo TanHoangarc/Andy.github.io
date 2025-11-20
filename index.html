@@ -89,8 +89,8 @@
       const DEFAULT_QR_IMAGES = {
         main: "https://i.ibb.co/P76k1ZV/Andy.jpg",
         wechat: "https://i.ibb.co/QFSCgkCP/Andy-Wechat.jpg",
-        whatsapp: "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://wa.me/84972133680",
         vcb: "https://i.ibb.co/wNnkr6ts/Andy-Vcb.jpg",
+        whatsapp: "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://wa.me/84972133680",
         tcb: "https://upload.wikimedia.org/wikipedia/commons/0/02/Techcombank_logo.png"
       };
 
@@ -534,7 +534,6 @@
             <div className="max-w-4xl mx-auto">
               <div className="flex justify-between items-center mb-8">
                 <h1 className="text-3xl font-bold text-gray-800">Quản trị NCV Card</h1>
-                <button onClick={() => { const newP = {...DEFAULT_PROFILE, id: Date.now().toString(), name: 'New User'}; setEditForm(newP); setEditingId(newP.id); }} className="bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 hover:bg-green-700 transition transform hover:-translate-y-1"><Icons.Plus /> Tạo Card Mới</button>
               </div>
               
               <div className="grid gap-4">
@@ -551,7 +550,6 @@
                     <div className="flex gap-3">
                       <button onClick={() => { window.open(`index.html?id=${p.id}`, '_blank'); }} className="p-2 text-gray-500 hover:text-blue-600 bg-gray-100 rounded-lg hover:bg-blue-50 transition"><Icons.Eye /> Xem</button>
                       <button onClick={() => { setEditForm(p); setEditingId(p.id); }} className="p-2 text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition flex gap-2 items-center px-4"><Icons.Edit /> Sửa</button>
-                      <button onClick={() => { if(confirm('Xóa profile này?')) save(profiles.filter(x => x.id !== p.id)); }} className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition"><Icons.Trash2 /></button>
                     </div>
                   </div>
                 ))}
